@@ -1,7 +1,7 @@
 package geometries;
 
-import Primitives.Point;
-import Primitives.Vector;
+import primitives.Point;
+import primitives.Vector;
 
 public class Plane implements Geometry {
     final Point _q0;
