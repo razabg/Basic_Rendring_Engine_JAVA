@@ -3,6 +3,9 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * this class implement the triangle geometry
+ */
 public class Triangle extends Polygon {
 
 
