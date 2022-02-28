@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Point {
     final Double3 _xyz;
 
+
     @Override
     public String toString() {
         return "Point" + _xyz ;
