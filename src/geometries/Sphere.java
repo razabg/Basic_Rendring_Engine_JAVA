@@ -3,6 +3,9 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * the class implement spere shape
+ */
 public class Sphere implements Geometry {
 
     Point center;

@@ -1,3 +1,9 @@
+/**
+ * raz abergel 313575185 razabg@gmail.com
+ * avi yalow 316606094 avrahamyalow@gmail.com
+ */
+
+
 import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;

@@ -32,7 +32,7 @@ public class Vector extends Point {
     }
 
     /**
-     *
+     *WE USED THIS WEBSITE http://www.damada.co.il/topics/math/db/vectors_scalar_mult/vectors_scalar_mult.shtml
      * @param v2
      * @return
      */
@@ -50,7 +50,12 @@ public class Vector extends Point {
 
     }
 
-    public Vector crossProduct(Vector vector) {//need add link
+    /**
+     * WE USED THIS WEBSITE https://www.mathsisfun.com/algebra/vectors-cross-product.html
+     * @param vector
+     * @return
+     */
+    public Vector crossProduct(Vector vector) {
         double u1 = _xyz._d1;
         double u2 = _xyz._d2;
         double u3 = _xyz._d3;
