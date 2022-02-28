@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * this class implement Ray
+ */
 public class Ray {
     Point p0;
     Vector dir;
