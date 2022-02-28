@@ -4,6 +4,10 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+
+/**
+ * the class implement tube shape
+ */
 public class Tube implements Geometry {
 
     protected Ray axisRay;

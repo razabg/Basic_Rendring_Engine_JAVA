@@ -3,6 +3,9 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * this class implement the plane geometry
+ */
 public class Plane implements Geometry {
 
 

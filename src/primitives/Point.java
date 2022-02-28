@@ -2,6 +2,10 @@ package primitives;
 
 import java.util.Objects;
 
+
+/**
+ * the class implement point structure
+ */
 public class Point {
     final Double3 _xyz;
 
