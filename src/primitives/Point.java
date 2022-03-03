@@ -37,9 +37,24 @@ public class Point {
         _xyz = new Double3(x,y,z);
     }
 
+    /**
+     *
+     * @param the vector pointing to the new point
+     * @return the new point
+     */
     public Point add(Vector vector) {
         return new Point(_xyz.add(vector._xyz));
     }
+
+   /** public Point Distance(Point one,Point two){
+
+        Double3 distance;
+
+
+
+        return distance;
+    }
+**/
 
     public Vector subtract(Point point) {
         Double3 result = _xyz.subtract(point._xyz);

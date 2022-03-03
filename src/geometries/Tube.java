@@ -10,9 +10,8 @@ import primitives.Vector;
  */
 public class Tube implements Geometry {
 
-    protected Ray axisRay;
-
-    protected double radius;
+    protected final Ray axisRay;
+    protected final double radius;
 
     public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
@@ -38,5 +37,6 @@ public class Tube implements Geometry {
     @Override
     public Vector getNormal(Point point) {
         return null;
-    }
+    }//להסתכל במצגות בשביל מימוש
+    
 }
