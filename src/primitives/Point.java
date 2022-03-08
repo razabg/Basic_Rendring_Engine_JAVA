@@ -46,22 +46,40 @@ public class Point {
         return new Point(_xyz.add(vector._xyz));
     }
 
-   /** public Point Distance(Point one,Point two){
-
-        Double3 distance;
 
 
+    /**
+     *
+     * @param other Point
+     * @return  d = ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1))
+     */
+    public double distanceSquared(Point other){
+        double x1 = _xyz._d1;
+        double y1 = _xyz._d2;
+        double z1 = _xyz._d3;
 
-        return distance;
+        double x2 = other._xyz._d1;
+        double y2 = other._xyz._d2;
+        double z2 = other._xyz._d3;
+
+        return ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1));
     }
-**/
+
+    /**
+     *
+     * @param other
+     * @return the distance between two points
+     */
+    public  double distance (Point other){
+        return Math.sqrt(distanceSquared(other));
+    }
+
 
     public Vector subtract(Point point) {
         Double3 result = _xyz.subtract(point._xyz);
         if (result.equals(Double3.ZERO)){
-            throw new IllegalArgumentException("resulting of subract Vector (0,0,0) not allowed");
+            throw new IllegalArgumentException("resulting of subtract Vector (0,0,0) not allowed");
         }
         return new Vector(result);
     }
 }
-;
