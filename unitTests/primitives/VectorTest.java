@@ -2,7 +2,9 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
+import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
+import static primitives.Util.isZero;
 
 class VectorTest {
     Vector v1 = new Vector(1, 2, 3);
@@ -12,6 +14,10 @@ class VectorTest {
 
     @Test
     void testZeroVector(){
+        // ============ Equivalence Partitions Tests ==============
+
+
+        // =============== Boundary Values Tests ==================
         assertThrows(IllegalArgumentException.class,()-> new Vector(0,0,0),"should have throw exception");
 
     }
@@ -19,10 +25,15 @@ class VectorTest {
 
     @Test
     void lengthSquared() {
+
+        assertTrue(isZero(v1.lengthSquared() - 14),"\"ERROR: lengthSquared() wrong value\"");
+
     }
 
     @Test
     void length() {
+        assertTrue(isZero(new Vector(0, 3, 4).length() - 5),"\"ERROR: length() wrong value\"");
+
     }
 
     /**
@@ -30,7 +41,8 @@ class VectorTest {
      */
     @Test
     void dotProduct() {
-       assertEquals(-28d,v1.dotProduct(v2),0.0000001,"dotproduct not working");
+
+        assertEquals(-28d,v1.dotProduct(v2),0.0000001,"dotproduct not working");
     }
 
     @Test
@@ -39,5 +51,6 @@ class VectorTest {
 
     @Test
     void normalize() {
+
     }
 }
