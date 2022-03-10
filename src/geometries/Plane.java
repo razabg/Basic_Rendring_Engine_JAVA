@@ -1,7 +1,12 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
+
+
+import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * this class implement the plane geometry
@@ -40,5 +45,45 @@ public class Plane implements Geometry {
     @Override
     public Vector getNormal(Point point) {
         return null;
+    }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray)
+    {
+        Point P0= ray.getP0();
+        Vector v= ray.getDir();
+        Vector n = _normal;
+
+
+        double nv = n.dotProduct(v);
+
+        // ray direction cannot be parallel to plane orientation
+        if (isZero(nv))
+        {
+            return null;
+        }
+    Vector Q_P0= _q0.subtract(P0);
+
+        double nQMinusP0= alignZero(n.dotProduct(Q_P0));
+
+        //t should not be equal to 0
+        if(isZero(nQMinusP0))
+        {
+            return null;
+        }
+        double t = alignZero(nQMinusP0 / nv);
+        if (t > 0)
+        {
+            // return immutable List
+            //return List.of(P0.add(v.Scale(t)));
+
+            return List.of(ray.getPoint(t));
+        }
+        else
+        {
+            return  null;
+        }
+
+
     }
 }

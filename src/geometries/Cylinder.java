@@ -29,6 +29,13 @@ public class Cylinder extends Tube {
                 '}';
     }
 
+    /**
+     *
+     * impelemention {@link Geometry#getNormal(Point)}
+     *
+     * @param point POINT TO CALUATE NORMAL FROM/TO
+     * @return normal
+     */
     @Override
     public Vector getNormal(Point point) {
         return super.getNormal(point);
