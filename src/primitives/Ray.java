@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.isZero;
+
 /**
  * this class implement Ray
  */
@@ -27,5 +29,20 @@ public class Ray {
 
     public Vector getDir() {
         return dir;
+    }
+
+    /**
+     * Creating a {@link Point} at a specific distance in the ray diraction
+     *
+     * @param t
+     * @return di
+     */
+    public Point getPoint(double t) {
+        if(isZero(t))
+        {
+            throw new IllegalArgumentException("t shoult not be ZERO");
+        }
+        return p0.add(dir.Scale(t));
+
     }
 }

@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 
 /**
  * the class implement tube shape
@@ -38,5 +40,9 @@ public class Tube implements Geometry {
     public Vector getNormal(Point point) {
         return null;
     }//להסתכל במצגות בשביל מימוש
-    
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
 }
