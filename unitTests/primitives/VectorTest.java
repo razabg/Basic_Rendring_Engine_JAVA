@@ -98,4 +98,26 @@ class VectorTest {
 
 
     }
+
+    @Test
+    void subtract() {
+
+        assertEquals(new Vector(1,-1,5),v1.subtract(v3),"The subtract() function not working");
+
+    }
+
+    @Test
+    void scaling() {
+
+        assertEquals(new Vector(2,4,6),v1.Scale(2),"The Scale() function not working");
+
+    }
+
+    @Test
+    void add() {
+
+
+        assertEquals(new Vector(1,5,1),v1.add(v3),"The add() function not working");
+
+    }
 }
