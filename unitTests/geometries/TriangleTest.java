@@ -8,5 +8,6 @@ class TriangleTest {
 
     @Test
     void getNormal() {
+
     }
 }

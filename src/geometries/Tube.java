@@ -12,16 +12,16 @@ import java.util.List;
  */
 public class Tube implements Geometry {
 
-    protected final Ray axisRay;
+    protected final Ray _axisRay;
     protected final double radius;
 
-    public Tube(Ray axisRay, double radius) {
-        this.axisRay = axisRay;
+    public Tube(Ray _axisRay, double radius) {
+        this._axisRay = _axisRay;
         this.radius = radius;
     }
 
-    public Ray getAxisRay() {
-        return axisRay;
+    public Ray get_axisRay() {
+        return _axisRay;
     }
 
     public double getRadius() {
@@ -31,16 +31,22 @@ public class Tube implements Geometry {
     @Override
     public String toString() {
         return "Tube{" +
-                "axisRay=" + axisRay +
+                "axisRay=" + _axisRay +
                 ", radius=" + radius +
                 '}';
     }
 
     @Override
     public Vector getNormal(Point point) {
-        return null;
-    }//להסתכל במצגות בשביל מימוש
+        Vector v = _axisRay.getDir();
+        Point P0 = _axisRay.getP0();
+        Vector PMinusP0 = point.subtract(P0);
+        double t = v.dotProduct(PMinusP0);
 
+        Point O = P0.add(v.Scale(t));
+
+        return (point.subtract(O)).normalize();
+    }
     @Override
     public List<Point> findIntsersections(Ray ray) {
         return null;

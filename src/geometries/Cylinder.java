@@ -24,7 +24,7 @@ public class Cylinder extends Tube {
     public String toString() {
         return "Cylinder{" +
                 "height=" + height +
-                ", axisRay=" + axisRay +
+                ", axisRay=" + _axisRay +
                 ", radius=" + radius +
                 '}';
     }

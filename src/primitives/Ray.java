@@ -32,7 +32,7 @@ public class Ray {
     }
 
     /**
-     * Creating a {@link Point} at a specific distance in the ray diraction
+     * Creating a {@link Point} at a specific distance in the ray direction
      *
      * @param t
      * @return di

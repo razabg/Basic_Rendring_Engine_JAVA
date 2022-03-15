@@ -7,7 +7,7 @@ import primitives.Vector;
 import java.util.List;
 
 /**
- * the class implement spere shape
+ * the class implement sphere shape
  */
 public class Sphere implements Geometry {
 
