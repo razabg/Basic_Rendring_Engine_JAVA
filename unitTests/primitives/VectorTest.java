@@ -78,7 +78,7 @@ class VectorTest {
 
 
     /**
-     * test method for {@link Vector#normalize()} (Vector)}
+     * test method for {@link Vector#normalize()}
      */
     @Test
     void normalize() {
@@ -107,7 +107,7 @@ class VectorTest {
     }
 
     /**
-     * test method for {@link Vector#subtract(Point)} (Vector)}
+     * test method for {@link Vector#subtract(Point)}
      */
     @Test
     void subtract() {
@@ -117,7 +117,7 @@ class VectorTest {
     }
 
     /**
-     * test method for {@link Vector#Scale(double)} (Vector)}
+     * test method for {@link Vector#Scale(double)}
      */
     @Test
     void scaling() {
@@ -126,11 +126,10 @@ class VectorTest {
 
     }
     /**
-     * test method for {@link Vector#add(Vector)} (Vector)}
+     * test method for {@link Vector#add(Vector)}
      */
     @Test
     void add() {
-
 
         assertEquals(new Vector(1,5,1),v1.add(v3),"The add() function not working");
 

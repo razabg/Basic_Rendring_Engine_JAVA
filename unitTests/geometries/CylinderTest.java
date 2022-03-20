@@ -13,6 +13,9 @@ class CylinderTest {
     void getHeight() {
     }
 
+    /**
+     * Test method for {@link Cylinder#getNormal(Point)} 
+     */
     @Test
     void getNormal() {
 
