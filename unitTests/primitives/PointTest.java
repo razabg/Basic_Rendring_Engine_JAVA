@@ -11,8 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class PointTest {
 
+    Point p1 = new Point(1, 2, 3);
 
-
+    /**
+     * Test method for {@link primitives.Point#add(Vector)} (primitives.Point)}
+     */
     @Test
     void add() {
 
@@ -22,6 +25,9 @@ class PointTest {
         // =============== Boundary Values Tests ==================
     }
 
+    /**
+     * Test method for {@link primitives.Point#distance(Point)}} (primitives.Point)}
+     */
     @Test
     void testDistance() {
         Point a = new Point(1,2,3);
@@ -34,13 +40,11 @@ class PointTest {
 
     }
 
+
     /**
-     * Test method for {@link primitives.Point#add(Vector)} (primitives.Point)}
+     * Test method for {@link primitives.Point#distanceSquared(Point)} (primitives.Point)}
      */
-    Point p1 = new Point(1, 2, 3);
     @Test
-
-
     void testDistanceSquared()
     {
 
@@ -55,6 +59,9 @@ class PointTest {
     }
 
 
+    /**
+     * Test method for {@link primitives.Point#subtract(Point)} (primitives.Point)}
+     */
     @Test
     void subtract() {
 

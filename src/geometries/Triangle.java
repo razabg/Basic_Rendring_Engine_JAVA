@@ -14,10 +14,11 @@ public class Triangle extends Polygon {
     }
 
 
-    @Override
+  /** @Override
     public Vector getNormal(Point point) {
         return null;
     }
+    **/
 
     @Override
     public String toString() {

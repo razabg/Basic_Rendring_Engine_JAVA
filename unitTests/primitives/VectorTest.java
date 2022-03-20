@@ -51,6 +51,9 @@ class VectorTest {
         assertEquals(-28d,v1.dotProduct(v2),0.0000001,"dotproduct not working");
     }
 
+    /**
+     * test method for {@link Vector#crossProduct(Vector)} (Vector)}
+     */
     @Test
     void crossProduct() {
 
@@ -73,6 +76,10 @@ class VectorTest {
 
     }
 
+
+    /**
+     * test method for {@link Vector#normalize()} (Vector)}
+     */
     @Test
     void normalize() {
         // ============ Equivalence Partitions Tests ==============
@@ -99,6 +106,9 @@ class VectorTest {
 
     }
 
+    /**
+     * test method for {@link Vector#subtract(Point)} (Vector)}
+     */
     @Test
     void subtract() {
 
@@ -106,13 +116,18 @@ class VectorTest {
 
     }
 
+    /**
+     * test method for {@link Vector#Scale(double)} (Vector)}
+     */
     @Test
     void scaling() {
 
         assertEquals(new Vector(2,4,6),v1.Scale(2),"The Scale() function not working");
 
     }
-
+    /**
+     * test method for {@link Vector#add(Vector)} (Vector)}
+     */
     @Test
     void add() {
 

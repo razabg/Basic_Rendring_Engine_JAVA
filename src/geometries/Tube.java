@@ -13,26 +13,26 @@ import java.util.List;
 public class Tube implements Geometry {
 
     protected final Ray _axisRay;
-    protected final double radius;
+    protected final double _radius;
 
     public Tube(Ray _axisRay, double radius) {
         this._axisRay = _axisRay;
-        this.radius = radius;
+        this._radius = radius;
     }
 
     public Ray get_axisRay() {
         return _axisRay;
     }
 
-    public double getRadius() {
-        return radius;
+    public double get_radius() {
+        return _radius;
     }
 
     @Override
     public String toString() {
         return "Tube{" +
                 "axisRay=" + _axisRay +
-                ", radius=" + radius +
+                ", radius=" + _radius +
                 '}';
     }
 
