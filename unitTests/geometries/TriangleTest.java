@@ -13,6 +13,7 @@ class TriangleTest {
      */
     @Test
     void getNormal() {
+        // ============ Equivalence Partitions Tests ==============
         Triangle Tri = new Triangle(
                 new Point(0, 0, 1),
                 new Point(1, 0, 0),
