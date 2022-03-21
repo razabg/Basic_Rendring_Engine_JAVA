@@ -63,7 +63,7 @@ public class Plane implements Geometry {
         {
             return null;
         }
-    Vector Q_P0= _q0.subtract(P0);
+            Vector Q_P0= _q0.subtract(P0);
 
         double nQMinusP0= alignZero(n.dotProduct(Q_P0));
 
@@ -80,10 +80,10 @@ public class Plane implements Geometry {
 
             return List.of(ray.getPoint(t));
         }
-        else
-        {
+       // else
+     //   {
             return  null;
-        }
+      //  }
 
 
     }

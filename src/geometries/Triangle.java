@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * this class implement the triangle geometry
@@ -19,6 +22,11 @@ public class Triangle extends Polygon {
         return null;
     }
     **/
+
+  @Override
+  public List<Point> findIntsersections(Ray ray) {
+      return null;
+  }
 
     @Override
     public String toString() {
