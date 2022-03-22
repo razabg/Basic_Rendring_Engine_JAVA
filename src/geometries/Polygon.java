@@ -15,11 +15,11 @@ public class Polygon implements Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
-	protected List<Point> vertices;
+	protected List<Point> _vertices;
 	/**
 	 * Associated plane in which the polygon lays
 	 */
-	protected Plane plane;
+	protected Plane _plane;
 	private int size;
 
 	/**
@@ -46,15 +46,15 @@ public class Polygon implements Geometry {
 	public Polygon(Point... vertices) {
 		if (vertices.length < 3)
 			throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
-		this.vertices = List.of(vertices);
+		this._vertices = List.of(vertices);
 		// Generate the plane according to the first three vertices and associate the
 		// polygon with this plane.
 		// The plane holds the invariant normal (orthogonal unit) vector to the polygon
-		plane = new Plane(vertices[0], vertices[1], vertices[2]);
+		_plane = new Plane(vertices[0], vertices[1], vertices[2]);
 		if (vertices.length == 3)
 			return; // no need for more tests for a Triangle
 
-		Vector n = plane.getNormal();
+		Vector n = _plane.getNormal();
 
 		// Subtracting any subsequent points will throw an IllegalArgumentException
 		// because of Zero Vector if they are in the same point
@@ -86,11 +86,57 @@ public class Polygon implements Geometry {
 
 	@Override
 	public Vector getNormal(Point point) {
-		return plane.getNormal();
+		return _plane.getNormal();
 	}
 
+	/**
+	 * we've learned the calculations from the introduction lecture
+	 * @param ray ray toward the object
+	 * @return the list of intersection points
+	 */
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
-		return null;
+
+		List<Point> result = _plane.findIntsersections(ray);
+
+		if (result == null) {
+			return result;
+		}
+
+		Point P0 = ray.getP0();
+		Vector v = ray.getDir();
+
+		Point P1 = _vertices.get(1);
+		Point P2 = _vertices.get(0);
+
+		Vector v1 = P1.subtract(P0);
+		Vector v2 = P2.subtract(P0);
+
+		double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+
+		if (isZero(sign)) {
+			return null;
+		}
+
+		boolean positive = sign > 0;
+
+		//iterate through all vertices of the polygon
+		for (int i = _vertices.size() - 1; i > 0; --i) {
+			v1 = v2;
+			v2 = _vertices.get(i).subtract(P0);
+
+			sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+			if (isZero(sign)) {
+				return null;
+			}
+
+			if (positive != (sign > 0)) {
+				return null;
+			}
+		}
+
+		return result;
+
+
 	}
 }
