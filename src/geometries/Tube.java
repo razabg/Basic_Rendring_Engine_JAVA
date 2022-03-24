@@ -4,39 +4,51 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 
 /**
  * the class implement tube shape
  */
 public class Tube implements Geometry {
 
-    protected final Ray axisRay;
-    protected final double radius;
+    protected final Ray _axisRay;
+    protected final double _radius;
 
-    public Tube(Ray axisRay, double radius) {
-        this.axisRay = axisRay;
-        this.radius = radius;
+    public Tube(Ray _axisRay, double radius) {
+        this._axisRay = _axisRay;
+        this._radius = radius;
     }
 
-    public Ray getAxisRay() {
-        return axisRay;
+    public Ray get_axisRay() {
+        return _axisRay;
     }
 
-    public double getRadius() {
-        return radius;
+    public double get_radius() {
+        return _radius;
     }
 
     @Override
     public String toString() {
         return "Tube{" +
-                "axisRay=" + axisRay +
-                ", radius=" + radius +
+                "axisRay=" + _axisRay +
+                ", radius=" + _radius +
                 '}';
     }
 
     @Override
     public Vector getNormal(Point point) {
+        Vector v = _axisRay.getDir();
+        Point P0 = _axisRay.getP0();
+        Vector PMinusP0 = point.subtract(P0);
+        double t = v.dotProduct(PMinusP0);
+
+        Point O = P0.add(v.Scale(t));
+
+        return (point.subtract(O)).normalize();
+    }
+    @Override
+    public List<Point> findIntersections(Ray ray) {
         return null;
-    }//להסתכל במצגות בשביל מימוש
-    
+    }
 }

@@ -9,6 +9,14 @@ import java.util.Objects;
 public class Point {
     final Double3 _xyz;
 
+    public double get_x() {
+        return _xyz._d1;
+    }
+    public double get_y() {return _xyz._d2;}
+    public double get_z() {
+        return _xyz._d3;
+    }
+
 
     @Override
     public String toString() {
@@ -82,4 +90,6 @@ public class Point {
         }
         return new Vector(result);
     }
+
+
 }

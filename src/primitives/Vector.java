@@ -39,7 +39,7 @@ public class Vector extends Point {
        double u2 = _xyz._d2;
        double u3 = _xyz._d3;
 
-       return  u1 * u1 + u2 * u2 + u3* u3;
+       return  u1 * u1 + u2 * u2 + u3 * u3;
     }
 
 
@@ -99,7 +99,7 @@ public class Vector extends Point {
      */
     public Vector normalize() {
         double len = length();
-        return new Vector(_xyz.reduce(length()));
+        return new Vector(_xyz.reduce(len));
 
 
     }
