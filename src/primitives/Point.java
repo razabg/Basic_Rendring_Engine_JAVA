@@ -9,6 +9,9 @@ import java.util.Objects;
 public class Point {
     final Double3 _xyz;
 
+    public double get_xyz() {
+        return _xyz._d1;
+    }
 
     @Override
     public String toString() {

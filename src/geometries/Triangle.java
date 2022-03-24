@@ -33,9 +33,9 @@ public class Triangle extends Polygon {
      * @return  intersection point
      */
   @Override
-  public List<Point> findIntsersections(Ray ray)
+  public List<Point> findIntersections(Ray ray)
   {
-      List<Point> result = _plane.findIntsersections(ray);
+      List<Point> result = _plane.findIntersections(ray);
 
       if (result == null) {
           return result;

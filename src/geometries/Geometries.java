@@ -29,13 +29,13 @@ public class Geometries implements Intersectable {
 
 
     @Override
-    public List<Point> findIntsersections(Ray ray) {
+    public List<Point> findIntersections(Ray ray) {
         List<Point> result=null;
 
         //TODO comment here
         for (var item: _intersectables)
         {
-            List <Point> itemList= item.findIntsersections(ray);
+            List <Point> itemList= item.findIntersections(ray);
 
             if(itemList!= null) {
                 if(result==null)
