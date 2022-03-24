@@ -12,7 +12,6 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir;
-        //this.dir.normalize();
         this.dir= this.dir.normalize();
     }
 
