@@ -9,6 +9,8 @@ import java.util.Objects;
 public class Point {
     final Double3 _xyz;
 
+    public final static Point ZERO = new Point(0d, 0d, 0d);
+
     public double get_x() {
         return _xyz._d1;
     }

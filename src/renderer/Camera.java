@@ -22,11 +22,11 @@ public class Camera {
     public Camera(Point p0, Vector vTo, Vector vUp) {
 
         _p0=p0;
-                //vTo and vup mast be ortogonal
+                //vTo and vup must be orthogonal
                 if (!isZero(vTo.dotProduct(vUp)))
-                    throw new IllegalArgumentException("the vectors vUP and VTo arn't ortogonal");
+                    throw new IllegalArgumentException("the vectors vUP and VTo aren't orthogonal");
 
-                //normaliize the vectors
+                //normalize the vectors
 
         _vTo= vTo.normalize();
         _vUp=vUp.normalize();
@@ -67,7 +67,7 @@ public class Camera {
         double yI= -(i-(Ny-1)/2d)*Ry;
         double xJ= -(j-(Nx-1)/2d)*Rx;
 
-        //move to midle of pixel ij
+        //move to middle of pixel ij
         if (!isZero(xJ))
         {
             Pij=Pij.add(_vRight.Scale(xJ));
@@ -77,8 +77,36 @@ public class Camera {
             Pij=Pij.add(_vUp.Scale(yI));
         }
 
-        //return ray from camerea to view plane coordinate(i,j)
+        //return ray from camera to view plane coordinate(i,j)
         return new Ray(_p0,Pij.subtract(_p0));
 
+    }
+
+    public Point get_p0() {
+        return _p0;
+    }
+
+    public Vector get_vTo() {
+        return _vTo;
+    }
+
+    public Vector get_vUp() {
+        return _vUp;
+    }
+
+    public Vector get_vRight() {
+        return _vRight;
+    }
+
+    public double get_distance() {
+        return _distance;
+    }
+
+    public int get_width() {
+        return _width;
+    }
+
+    public int get_height() {
+        return _height;
     }
 }
