@@ -9,10 +9,10 @@ import static primitives.Util.isZero;
 public class Camera {
 
 
-    private Point _p0;
-    private Vector _vTo;
-    private Vector _vUp;
-    private Vector _vRight;
+    private Point _p0; // camera location
+    private Vector _vTo; // y axis vector
+    private Vector _vUp;// x axis vector
+    private Vector _vRight; // z axis vector
 
     private double _distance;
 
@@ -20,10 +20,8 @@ public class Camera {
     private int _height;
 
     /**
-     *
-     * @param p0
-     * @param vTo
-     * @param vUp
+     * private ctor using the builder design pattern
+     * @param builder
      */
     private Camera(CameraBuilder builder) {
         _p0 = builder._p0;
@@ -47,12 +45,27 @@ public class Camera {
 
     }
 
+    /**
+     * the method calc the size of the view plane
+     * @param width
+     * @param height
+     * @return
+     */
     public Camera setVPSize(int width, int height) {
         _width=width;
         _height=height;
         return this;
     }
 
+
+    /**
+     * this method create ray that going from the camera to the center of the view plane
+     * @param Nx -amount of rows in view plane (number of pixels)
+     * @param Ny -amount of columns in view plane (number of pixels)
+     * @param j -X's index
+     * @param i -Y's index
+     * @return - the ray which goes through the pixel
+     */
     public Ray constructRay(int Nx, int Ny, int j, int i) {
 
         //Image center
