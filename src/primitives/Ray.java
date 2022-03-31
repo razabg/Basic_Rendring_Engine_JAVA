@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Objects;
+
 import static primitives.Util.isZero;
 
 /**
@@ -13,6 +15,19 @@ public class Ray {
         this.p0 = p0;
         this.dir = dir;
         this.dir= this.dir.normalize();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ray ray = (Ray) o;
+        return Objects.equals(p0, ray.p0) && Objects.equals(dir, ray.dir);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(p0, dir);
     }
 
     @Override
