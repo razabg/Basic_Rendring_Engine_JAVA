@@ -126,7 +126,7 @@ public class Camera {
 
 
     /**
-     * Implementation of builder pattern
+     * Implementation of builder pattern.
      */
     public static class CameraBuilder{
 
