@@ -112,6 +112,9 @@ public class Camera {
     }
 
 
+    /**
+     * Implementation of builder pattern
+     */
     public static class CameraBuilder{
 
         private Point _p0;
@@ -125,6 +128,12 @@ public class Camera {
         private int _height;
 
 
+        /**
+         * c-tor for basic camera
+         * @param p0 the location point of the camera
+         * @param vTo Y axis vector
+         * @param vUp X axis vector
+         */
         public CameraBuilder(Point p0, Vector vTo, Vector vUp) {
 
             _p0=p0;
@@ -138,14 +147,26 @@ public class Camera {
             _vTo= vTo.normalize();
             _vUp=vUp.normalize();
 
+
             _vRight = _vTo.crossProduct(_vUp);
         }
 
+        /**
+         * set distance between the camera and the view-plane
+         * @param distance distance
+         * @return the new camera for optional adding attribute
+         */
         public  CameraBuilder setDistance(double distance) { //
             _distance=distance;
             return this;
         }
 
+        /**
+         * set size of the view-plane
+         * @param width width the view-plane
+         * @param height height the view-plane
+         * @return the new camera for optional adding attribute
+         */
         public CameraBuilder setSize(int width, int height) {
             _width = width;
             _height = height;
@@ -153,6 +174,10 @@ public class Camera {
         }
 
 
+        /**
+         * build the new camera with the relevant attribute
+         * @return new camera
+         */
         public Camera build() {
             Camera camera = new Camera(this);
             return camera;
