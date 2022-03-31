@@ -20,7 +20,7 @@ class CameraTest {
     @Test
     void testConstructRay() {
         Camera camera = new Camera.CameraBuilder( Point.ZERO,new Vector(0, 0, -1),new Vector(0, -1, 0))
-                .setDistance(10)
+                .setVPDistance(10)
                 .build();
 
 

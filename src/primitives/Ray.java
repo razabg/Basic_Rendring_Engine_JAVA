@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.isZero;
@@ -13,8 +14,7 @@ public class Ray {
 
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
-        this.dir = dir;
-        this.dir= this.dir.normalize();
+        this.dir = dir.normalize();
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
-        return Objects.equals(p0, ray.p0) && Objects.equals(dir, ray.dir);
+        return p0.equals(ray.p0) && dir.equals(ray.dir);
     }
 
     @Override
@@ -49,15 +49,28 @@ public class Ray {
     /**
      * Creating a {@link Point} at a specific distance in the ray direction
      *
-     * @param t
+     * @param delta
      * @return di
      */
-    public Point getPoint(double t) {
-        if(isZero(t))
-        {
-            throw new IllegalArgumentException("t shoult not be ZERO");
+    public Point getPoint(double delta) {
+        if (isZero(delta)) {
+            return p0;
         }
-        return p0.add(dir.Scale(t));
-
+        return p0.add(dir.scale(delta));
     }
+
+    Point findClosestPoint(List<Point> pointList) {
+        Point result = null;
+        double minDistance = Double.MAX_VALUE;
+        double ptDistance;
+        for (Point pt : pointList) {
+            ptDistance = p0.distance(pt);
+            if (ptDistance < minDistance) {
+                minDistance = ptDistance;
+                result = pt;
+            }
+        }
+        return result;
+    }
+
 }

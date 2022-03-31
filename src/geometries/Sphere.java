@@ -52,7 +52,7 @@ public class Sphere implements Geometry {
         Vector v = ray.getDir();
 
         if (P0.equals(_center)) {
-            return List.of(_center.add(v.Scale(_radius)));
+            return List.of(_center.add(v.scale(_radius)));
         }
 
         Vector U = _center.subtract(P0);

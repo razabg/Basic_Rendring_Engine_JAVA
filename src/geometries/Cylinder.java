@@ -40,11 +40,11 @@ public class Cylinder extends Tube {
     public Vector getNormal(Point point) {
         Point P0 = _axisRay.getP0(); //middle of starting base
         Vector v = _axisRay.getDir();
-        Point P1 = P0.add(v.Scale(_height)); //middle of far base
+        Point P1 = P0.add(v.scale(_height)); //middle of far base
 
         //if point is on the starting base - if distance from p0 is radius, and orthogonal to ray (so it is not on ray itself)
         if ((point.distance(P0) <= _radius) && (point.subtract(P0).dotProduct(v) == 0)) {
-            return get_axisRay().getDir().Scale(-1);
+            return get_axisRay().getDir().scale(-1);
         }
         //if point is on the far base - if distance from p1 is radius, and orthogonal to ray (so it is not on ray itself)
         else if ((point.distance(P1) <= _radius) && (point.subtract(P1).dotProduct(v) == 0)) {
@@ -57,7 +57,7 @@ public class Cylinder extends Tube {
             Vector PMinusP0 = point.subtract(P0);
             double t = v.dotProduct(PMinusP0);
 
-            Point O = P0.add(v.Scale(t));
+            Point O = P0.add(v.scale(t));
 
             return (point.subtract(O)).normalize();
 
