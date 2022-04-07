@@ -2,7 +2,6 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
@@ -117,12 +116,12 @@ class VectorTest {
     }
 
     /**
-     * test method for {@link Vector#Scale(double)}
+     * test method for {@link Vector#scale(double)}
      */
     @Test
     void scaling() {
 
-        assertEquals(new Vector(2,4,6),v1.Scale(2),"The Scale() function not working");
+        assertEquals(new Vector(2,4,6),v1.scale(2),"The Scale() function not working");
 
     }
     /**

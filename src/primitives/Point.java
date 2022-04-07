@@ -7,22 +7,22 @@ import java.util.Objects;
  * the class implement point structure
  */
 public class Point {
-    final Double3 _xyz;
+    final Double3 xyz;
 
     public final static Point ZERO = new Point(0d, 0d, 0d);
 
     public double get_x() {
-        return _xyz._d1;
+        return xyz.d1;
     }
-    public double get_y() {return _xyz._d2;}
+    public double get_y() {return xyz.d2;}
     public double get_z() {
-        return _xyz._d3;
+        return xyz.d3;
     }
 
 
     @Override
     public String toString() {
-        return "Point" + _xyz ;
+        return "Point" + xyz;
 
     }
 
@@ -31,29 +31,29 @@ public class Point {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Point point = (Point) o;
-        return Objects.equals(_xyz, point._xyz);
+        return Objects.equals(xyz, point.xyz);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_xyz);
+        return Objects.hash(xyz);
     }
 
     public Point(Double3 xyz) {
-        _xyz = xyz;
+        this.xyz = xyz;
     }
 
     public Point(double x, double y, double z) {
-        _xyz = new Double3(x,y,z);
+        xyz = new Double3(x,y,z);
     }
 
     /**
      *
-     * @param the vector pointing to the new point
+     * @param  vector the vector pointing to the new point
      * @return the new point
      */
     public Point add(Vector vector) {
-        return new Point(_xyz.add(vector._xyz));
+        return new Point(xyz.add(vector.xyz));
     }
 
 
@@ -64,13 +64,13 @@ public class Point {
      * @return  d = ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1))
      */
     public double distanceSquared(Point other){
-        double x1 = _xyz._d1;
-        double y1 = _xyz._d2;
-        double z1 = _xyz._d3;
+        double x1 = xyz.d1;
+        double y1 = xyz.d2;
+        double z1 = xyz.d3;
 
-        double x2 = other._xyz._d1;
-        double y2 = other._xyz._d2;
-        double z2 = other._xyz._d3;
+        double x2 = other.xyz.d1;
+        double y2 = other.xyz.d2;
+        double z2 = other.xyz.d3;
 
         return ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1));
     }
@@ -86,7 +86,7 @@ public class Point {
 
 
     public Vector subtract(Point point) {
-        Double3 result = _xyz.subtract(point._xyz);
+        Double3 result = xyz.subtract(point.xyz);
         if (result.equals(Double3.ZERO)){
             throw new IllegalArgumentException("resulting of subtract Vector (0,0,0) not allowed");
         }

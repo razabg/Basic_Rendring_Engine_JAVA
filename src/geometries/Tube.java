@@ -43,7 +43,7 @@ public class Tube implements Geometry {
         Vector PMinusP0 = point.subtract(P0);
         double t = v.dotProduct(PMinusP0);
 
-        Point O = P0.add(v.Scale(t));
+        Point O = P0.add(v.scale(t));
 
         return (point.subtract(O)).normalize();
     }
