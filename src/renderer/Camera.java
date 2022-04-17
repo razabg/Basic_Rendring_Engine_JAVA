@@ -1,5 +1,6 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -9,7 +10,7 @@ import static primitives.Util.isZero;
 public class Camera {
 
 
-    private Point _p0; // camera location
+     private Point _p0; // camera location
     private Vector _vTo; // y axis vector
     private Vector _vUp;// x axis vector
     private Vector _vRight; // z axis vector
@@ -18,6 +19,9 @@ public class Camera {
 
     private int _width;
     private int _height;
+
+    private ImageWriter imageWriter;
+    private RayTracer rayTracer;
 
     /**
      * private ctor using the builder design pattern
@@ -31,6 +35,8 @@ public class Camera {
         _height = builder._height;
         _width = builder._width;
         _distance = builder._distance;
+        imageWriter=  builder.imageWriter;
+        rayTracer = builder.rayTracer;
     }
 
     /**
@@ -39,7 +45,6 @@ public class Camera {
      * @return
      */
     public Camera setVPDistance(double distance) {
-
         _distance=distance;
         return this;
 
@@ -69,7 +74,7 @@ public class Camera {
     public Ray constructRay(int Nx, int Ny, int j, int i) {
 
         //Image center
-        Point Pc= _p0.add(_vTo.Scale(_distance));
+        Point Pc= _p0.add(_vTo.scale(_distance));
 
         //Ratio width and height
         double Ry=(double) _height/Ny;
@@ -84,11 +89,11 @@ public class Camera {
         //move to middle of pixel ij
         if (!isZero(xJ))
         {
-            Pij=Pij.add(_vRight.Scale(xJ));
+            Pij=Pij.add(_vRight.scale(xJ));
         }
         if (!isZero(yI))
         {
-            Pij=Pij.add(_vUp.Scale(yI));
+            Pij=Pij.add(_vUp.scale(yI));
         }
 
         //return ray from camera to view plane coordinate(i,j)
@@ -124,9 +129,33 @@ public class Camera {
         return _height;
     }
 
+    public ImageWriter getImageWriter() {
+        return imageWriter;
+    }
+
+    public RayTracer getRayTracer() {
+        return rayTracer;
+    }
+
+    public void writeToImage() {
+        imageWriter.writeToImage();
+    }
+
+    public void renderImage() {
+        // TODO
+    }
+
+    public void printGrid(int interval, Color color) {
+        for (int i = 0; i <= imageWriter.getNx(); i++) {
+            for (int j = 0; j <= imageWriter.getNy(); j++) {
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(i, j, color);
+            }
+        }
+    }
 
     /**
-     * Implementation of builder pattern
+     * Implementation of builder pattern.
      */
     public static class CameraBuilder{
 
@@ -139,6 +168,9 @@ public class Camera {
 
         private int _width;
         private int _height;
+
+        private ImageWriter imageWriter = null;
+        private RayTracer rayTracer =null;
 
 
         /**
@@ -169,7 +201,7 @@ public class Camera {
          * @param distance distance
          * @return the new camera for optional adding attribute
          */
-        public  CameraBuilder setDistance(double distance) { //
+        public  CameraBuilder setVPDistance(double distance) { //
             _distance=distance;
             return this;
         }
@@ -180,7 +212,7 @@ public class Camera {
          * @param height height the view-plane
          * @return the new camera for optional adding attribute
          */
-        public CameraBuilder setSize(int width, int height) {
+        public CameraBuilder setVPSize(int width, int height) {
             _width = width;
             _height = height;
             return this;
@@ -197,7 +229,14 @@ public class Camera {
         }
 
 
+        public CameraBuilder setImageWriter(ImageWriter imageWriter) {
+            this.imageWriter = imageWriter;
+            return this;
+        }
 
+        public CameraBuilder setRayTracer(RayTracer rayTracer) {
+            this.rayTracer = rayTracer;
+        }
     }
 
 }

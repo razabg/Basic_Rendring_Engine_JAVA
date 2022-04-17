@@ -18,18 +18,18 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class CameraIntegrationsTest {
 
     Camera cam1 = new Camera.CameraBuilder( Point.ZERO,new Vector(0, 0, -1),new Vector(0, 1, 0))
-            .setDistance(1)
-            .setSize(3, 3)
+            .setVPDistance(1)
+            .setVPSize(3, 3)
             .build();
 
     Camera cam2 = new Camera.CameraBuilder( new Point(0,0,0.5),new Vector(0, 0, -1),new Vector(0, 1, 0))
-            .setDistance(1)
-            .setSize(3, 3)
+            .setVPDistance(1)
+            .setVPSize(3, 3)
             .build();
 
     Camera cam3 = new Camera.CameraBuilder( Point.ZERO,new Vector(0, 0, -1),new Vector(0, -1, 0))
-            .setDistance(1)
-            .setSize(3, 3)
+            .setVPDistance(1)
+            .setVPSize(3, 3)
             .build();
 
 
