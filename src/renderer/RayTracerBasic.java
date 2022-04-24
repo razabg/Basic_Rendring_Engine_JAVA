@@ -13,7 +13,7 @@ public class RayTracerBasic extends RayTracer{
 
     @Override
     Color traceRay(Ray ray) {
-        Geometries geometries = super.scene.getGeometries();
+        Geometries geometries = super.scene.geometries;
 
         return null;
     }
