@@ -18,13 +18,13 @@ public class Camera {
     private Vector _vUp;// x axis vector
     private Vector _vRight; // z axis vector
 
-    private double _distance;
+    private double _distance;//object's actual distance from the camera center
 
-    private int _width;
-    private int _height;
+    private int _width;//actual width
+    private int _height;//actual height
 
-    private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    private ImageWriter imageWriter; //the object create the image
+    private RayTracerBase rayTracerBase;//the object used to trace rays for the rendering engine
 
     /**
      * private ctor using the builder design pattern
@@ -97,6 +97,10 @@ public class Camera {
 
     }
 
+    /**
+     * the method check if imageWriter is not equal to null and then
+     * it will create the image using the imageWriter.writeToImage
+     */
     public void writeToImage() {
 
         if (imageWriter == null)
@@ -105,6 +109,9 @@ public class Camera {
         imageWriter.writeToImage();
     }
 
+    /**
+     * the method render the image with the given data
+     */
     public void renderImage() {
 
         if (_p0 == null || _vTo == null || _vUp == null ||
