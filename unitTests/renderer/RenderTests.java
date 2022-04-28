@@ -1,9 +1,8 @@
 package renderer;
 
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import org.junit.jupiter.api.Test;
 
-import lighting.AmbientLight;
 import geometries.*;
 import primitives.*;
 import scene.Scene;
@@ -24,15 +23,21 @@ public class RenderTests {
 		Scene scene = new Scene.SceneBuilder("Test scene")
 				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), new Double3(1,1,1))) //
 				.setBackground(new Color(75, 127, 90))
-				.build();
+				.setGeometries(new Geometries(new Sphere(new Point(0, 0, -100), 50),
+						new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
+						// left
+						new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
+						// left
+						new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))))
+						.build();
 
-		scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50),
-				new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
-																													// left
-				new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
-																														// left
-				new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
-																													// right
+		//scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50),
+		//		new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
+		//																											// left
+		//		new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
+		//																												// left
+		//		new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
+		//																											// right
 		Camera camera = new Camera.CameraBuilder(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPDistance(100) //
 				.setVPSize(500, 500) //
@@ -50,7 +55,8 @@ public class RenderTests {
 	 */
 	@Test
 	public void basicRenderXml() {
-		Scene scene = new Scene("XML Test scene");
+		Scene scene = new Scene.SceneBuilder("XML Test scene")
+				.build();
 		// enter XML file name and parse from XML file into scene object
 		// ...
 

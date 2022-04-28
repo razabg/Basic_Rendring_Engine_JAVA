@@ -1,6 +1,6 @@
 package scene;
 
-import elements.AmbientLight;
+import lighting.AmbientLight;
 import geometries.Geometries;
 import primitives.Color;
 
@@ -9,7 +9,9 @@ public class Scene {
     private final String name;
     private final Color background;
     private final AmbientLight ambientLight;
-    private final Geometries geometries;
+    public final Geometries geometries;
+
+
 
     private Scene(SceneBuilder builder){
         name = builder.name;
@@ -18,21 +20,6 @@ public class Scene {
         geometries = builder.geometries;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Color getBackground() {
-        return background;
-    }
-
-    public AmbientLight getAmbientLight() {
-        return ambientLight;
-    }
-
-    public Geometries getGeometries() {
-        return geometries;
-    }
 
     public static class SceneBuilder {
 

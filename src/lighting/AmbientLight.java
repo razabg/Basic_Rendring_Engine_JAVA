@@ -1,4 +1,4 @@
-package elements;
+package lighting;
 
 import primitives.Color;
 import primitives.Double3;
@@ -28,7 +28,7 @@ public class AmbientLight {
 
     /**
      * getter for intensity
-     * @return intensity of ammient light
+     * @return intensity of ambient light
      */
     public Color getIntensity() {
         return intensity;
