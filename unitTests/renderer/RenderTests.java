@@ -21,7 +21,7 @@ public class RenderTests {
 	@Test
 	public void basicRenderTwoColorTest() {
 		Scene scene = new Scene.SceneBuilder("Test scene")
-				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), new Double3(1,1,1))) //
+				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), new Double3(1, 1, 1))) //
 				.setBackground(new Color(75, 127, 90))
 				.setGeometries(new Geometries(new Sphere(new Point(0, 0, -100), 50),
 						new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
@@ -29,7 +29,7 @@ public class RenderTests {
 						new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down
 						// left
 						new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))))
-						.build();
+				.build();
 
 		//scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50),
 		//		new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
@@ -41,7 +41,7 @@ public class RenderTests {
 		Camera camera = new Camera.CameraBuilder(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPDistance(100) //
 				.setVPSize(500, 500) //
-				.setImageWriter(new ImageWriter("base render test", 1000, 1000))				
+				.setImageWriter(new ImageWriter("base render test", 1000, 1000))
 				.setRayTracer(new RayTracerBasic(scene))
 				.build();
 
@@ -49,10 +49,12 @@ public class RenderTests {
 		camera.printGrid(100, new Color(java.awt.Color.YELLOW));
 		camera.writeToImage();
 	}
+}
 
 	/**
 	 * Test for XML based scene - for bonus
 	 */
+	/**
 	@Test
 	public void basicRenderXml() {
 		Scene scene = new Scene.SceneBuilder("XML Test scene")
@@ -72,3 +74,4 @@ public class RenderTests {
 		camera.writeToImage();
 	}
 }
+	**/
