@@ -2,19 +2,34 @@ package renderer;
 
 import geometries.Geometries;
 import primitives.Color;
+import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
 
-public class RayTracerBasic extends RayTracer{
+import java.util.List;
 
+/**
+ *class used to trace rays for the rendering engine
+ */
+public class RayTracerBasic extends RayTracerBase {
+    /**
+     *
+     * @param scene - the scene the rays are sent to
+     */
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
 
     @Override
     Color traceRay(Ray ray) {
-        Geometries geometries = super.scene.geometries;
+       List<Point> IntersectPoints =  scene.geometries.findIntersections(ray);
 
-        return null;
+        if (IntersectPoints == null)
+            return scene.getBackground();
+        else {
+            Point closetPoint = ray.findClosestPoint(IntersectPoints);
+        }
     }
+
+
 }

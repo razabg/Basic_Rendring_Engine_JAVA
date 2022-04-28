@@ -64,16 +64,19 @@ public class Ray {
      * @param pointList
      * @return point
      */
-    Point findClosestPoint(List<Point> pointList) {
+    public Point findClosestPoint(List<Point> pointList) {
         Point result = null;
         double minDistance = Double.MAX_VALUE;
         double ptDistance;
+        if (pointList!= null){
         for (Point pt : pointList) { // traverse all the points and find the min distance point
             ptDistance = p0.distance(pt);
             if (ptDistance < minDistance) {
                 minDistance = ptDistance;
                 result = pt;
             }
+        }
+
         }
         return result;
     }
