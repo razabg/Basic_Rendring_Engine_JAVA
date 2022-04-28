@@ -5,6 +5,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.MissingFormatArgumentException;
+import java.util.MissingResourceException;
+
 import static primitives.Util.isZero;
 
 public class Camera {
@@ -21,7 +24,7 @@ public class Camera {
     private int _height;
 
     private ImageWriter imageWriter;
-    private RayTracer rayTracer;
+    private RayTracerBase rayTracerBase;
 
     /**
      * private ctor using the builder design pattern
@@ -37,37 +40,12 @@ public class Camera {
         _width = builder._width;
         _distance = builder._distance;
         imageWriter = builder.imageWriter;
-        rayTracer = builder.rayTracer;
-    }
-
-    /**
-     * set view plane distance
-     *
-     * @param distance distancebetween camera and view plane
-     * @return
-     */
-    public Camera setVPDistance(double distance) {
-        _distance = distance;
-        return this;
-
-    }
-
-    /**
-     * the method calc the size of the view plane
-     *
-     * @param width
-     * @param height
-     * @return
-     */
-    public Camera setVPSize(int width, int height) {
-        _width = width;
-        _height = height;
-        return this;
+        rayTracerBase = builder.rayTracerBase;
     }
 
 
     /**
-     * this method create ray that going from the camera to the center of the view plane
+     * this method create ray that going from the camera to a specific pixel
      *
      * @param Nx -amount of rows in view plane (number of pixels)
      * @param Ny -amount of columns in view plane (number of pixels)
@@ -103,59 +81,73 @@ public class Camera {
 
     }
 
-    public Point get_p0() {
-        return _p0;
-    }
+    /**
+     * the method calc the color of the pixel according to the ray
+     *
+     * @param col x axis
+     * @param row y axis
+     * @return color
+     */
+    private Color CastRay(int col, int row) {
 
-    public Vector get_vTo() {
-        return _vTo;
-    }
+        Ray RayToRender = constructRay(imageWriter.getNx(), imageWriter.getNy(), col, row);
+        Color color = rayTracerBase.traceRay(RayToRender);
+        return color;
 
-    public Vector get_vUp() {
-        return _vUp;
-    }
 
-    public Vector get_vRight() {
-        return _vRight;
-    }
-
-    public double get_distance() {
-        return _distance;
-    }
-
-    public int get_width() {
-        return _width;
-    }
-
-    public int get_height() {
-        return _height;
-    }
-
-    public ImageWriter getImageWriter() {
-        return imageWriter;
-    }
-
-    public RayTracer getRayTracer() {
-        return rayTracer;
     }
 
     public void writeToImage() {
+
+        if (imageWriter == null)
+            throw new MissingResourceException("image writer cannot be null", "Camera", null);
+
         imageWriter.writeToImage();
     }
 
     public void renderImage() {
-        // TODO
-    }
 
-    public void printGrid(int interval, Color color) {
+        if (_p0 == null || _vTo == null || _vUp == null ||
+                _vRight == null || _distance == 0 || _width == 0 || _height == 0 ||
+                imageWriter == null || rayTracerBase == null) {
+            throw new MissingFormatArgumentException("fields cannot get null");
+        }
+      //  throw new UnsupportedOperationException(); //check where should be
+
         for (int i = 0; i <= imageWriter.getNx(); i++) {
             for (int j = 0; j <= imageWriter.getNy(); j++) {
-                if (i % interval == 0 || j % interval == 0) {
-                    imageWriter.writePixel(i, j, color);
+                imageWriter.writePixel(i, j, CastRay(i, j));
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
+     * the method will create grid of lines
+     * @param interval
+     * @param color
+     */
+    public void printGrid(int interval, Color color)  {
+        if (imageWriter == null) {
+            throw new MissingResourceException("image writer cannot be null","Camera",null);
+        }
+        else{
+            for (int i = 0; i <= imageWriter.getNx(); i++) {
+                for (int j = 0; j <= imageWriter.getNy(); j++) {
+                    if (i % interval == 0 || j % interval == 0) {
+                        imageWriter.writePixel(i, j, color);
+                    }
                 }
             }
         }
-
     }
 
         /**
@@ -174,7 +166,7 @@ public class Camera {
             private int _height;
 
             private ImageWriter imageWriter = null;
-            private RayTracer rayTracer = null;
+            private RayTracerBase rayTracerBase = null;
 
 
             /**
@@ -232,8 +224,8 @@ public class Camera {
             }
 
 
-            public CameraBuilder setRayTracer(RayTracer rayTracer) {
-                this.rayTracer = rayTracer;
+            public CameraBuilder setRayTracer(RayTracerBase rayTracerBase) {
+                this.rayTracerBase = rayTracerBase;
                 return this;
             }
 
@@ -248,7 +240,67 @@ public class Camera {
             }
 
         }
+    public Point get_p0() {
+        return _p0;
+    }
 
+    public Vector get_vTo() {
+        return _vTo;
+    }
+
+    public Vector get_vUp() {
+        return _vUp;
+    }
+
+    public Vector get_vRight() {
+        return _vRight;
+    }
+
+    public double get_distance() {
+        return _distance;
+    }
+
+    public int get_width() {
+        return _width;
+    }
+
+    public int get_height() {
+        return _height;
+    }
+
+    public ImageWriter getImageWriter() {
+        return imageWriter;
+    }
+
+    public RayTracerBase getRayTracer() {
+        return rayTracerBase;
+    }
+
+
+    /**
+     * set view plane distance
+     *
+     * @param distance distancebetween camera and view plane
+     * @return
+     */
+    public Camera setVPDistance(double distance) {
+        _distance = distance;
+        return this;
+
+    }
+
+    /**
+     * the method calc the size of the view plane
+     *
+     * @param width
+     * @param height
+     * @return
+     */
+    public Camera setVPSize(int width, int height) {
+        _width = width;
+        _height = height;
+        return this;
+    }
 
     }
 

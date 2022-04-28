@@ -20,6 +20,9 @@ public class Scene {
         geometries = builder.geometries;
     }
 
+    public Color getBackground() {
+        return background;
+    }
 
     public static class SceneBuilder {
 
@@ -53,5 +56,7 @@ public class Scene {
             //....
             return scene;
         }
+
+
     }
 }

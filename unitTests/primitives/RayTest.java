@@ -27,6 +27,7 @@ class RayTest {
         assertEquals(list.get(2), ray.findClosestPoint(list), "wrong point!");
 
         // =============== Boundary Values Tests ==================
+        List<Point> NilList = null;
         //TC11 - no points
         assertNull(ray.findClosestPoint(null), "supposed to be null!");
 
