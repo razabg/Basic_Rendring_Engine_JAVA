@@ -114,13 +114,12 @@ public class Camera {
         }
       //  throw new UnsupportedOperationException(); //check where should be
 
-        for (int i = 0; i <= imageWriter.getNx(); i++) {
-            for (int j = 0; j <= imageWriter.getNy(); j++) {
+        for (int i = 0; i < imageWriter.getNx(); i++) {
+            for (int j = 0; j < imageWriter.getNy(); j++) {
                 imageWriter.writePixel(i, j, CastRay(i, j));
             }
         }
     }
-
 
 
 
@@ -140,8 +139,8 @@ public class Camera {
             throw new MissingResourceException("image writer cannot be null","Camera",null);
         }
         else{
-            for (int i = 0; i <= imageWriter.getNx(); i++) {
-                for (int j = 0; j <= imageWriter.getNy(); j++) {
+            for (int i = 0; i < imageWriter.getNx(); i++) {
+                for (int j = 0; j < imageWriter.getNy(); j++) {
                     if (i % interval == 0 || j % interval == 0) {
                         imageWriter.writePixel(i, j, color);
                     }
