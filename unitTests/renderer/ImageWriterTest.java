@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ImageWriterTest {
 
+
+    /**
+     * Test method for {@link renderer.ImageWriter#writeToImage()}.
+     */
     @Test
     void writeToImage() {
         int nX = 800;

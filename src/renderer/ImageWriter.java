@@ -18,8 +18,8 @@ import javax.imageio.*;
  * @author Dan
  */
 public class ImageWriter {
-	private int nX;
-	private int nY;
+	private int nX; //  amount of horizontal pixels
+	private int nY; //  amount of vertical pixels
 
 	private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
 
@@ -32,8 +32,8 @@ public class ImageWriter {
 	/**
 	 * Image Writer constructor accepting image name and View Plane parameters,
 	 * @param imageName the name of jpeg file
-	 * @param nX        amount of pixels by Width
-	 * @param nY        amount of pixels by height
+	 * @param nX  amount of pixels by Width
+	 * @param nY  amount of pixels by height
 	 */
 	public ImageWriter(String imageName, int nX, int nY) {
 		this.imageName = imageName;
