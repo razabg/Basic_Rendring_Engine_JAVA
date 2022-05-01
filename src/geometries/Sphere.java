@@ -11,7 +11,7 @@ import static primitives.Util.alignZero;
 /**
  * the class implement sphere shape
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
     Point _center;
     double _radius;
@@ -42,6 +42,11 @@ public class Sphere implements Geometry {
                 "center=" + _center +
                 ", radius=" + _radius +
                 '}';
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        return null;
     }
 
     @Override

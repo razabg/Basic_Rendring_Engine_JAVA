@@ -5,7 +5,7 @@ import primitives.Ray;
 
 import java.util.*;
 
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 
     private List<Intersectable> _intersectables;
 
@@ -28,6 +28,11 @@ public class Geometries implements Intersectable {
 
     }
 
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+      return null;
+    }
 
     @Override
     public List<Point> findIntersections(Ray ray) {

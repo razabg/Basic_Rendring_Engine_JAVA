@@ -11,7 +11,7 @@ import static primitives.Util.isZero;
 /**
  * this class implement the plane geometry
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
 
     final Point _q0;
@@ -46,6 +46,11 @@ public class Plane implements Geometry {
     public Vector getNormal(Point point) {
         return _normal;
 
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        return null;
     }
 
     @Override
