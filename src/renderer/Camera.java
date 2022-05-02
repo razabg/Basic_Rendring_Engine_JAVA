@@ -88,12 +88,11 @@ public class Camera {
      * @param row y axis
      * @return color
      */
-    private Color CastRay(int col, int row) {
+    private void CastRay(int nX, int nY,int i ,int j) {
 
-        Ray RayToRender = constructRay(imageWriter.getNx(), imageWriter.getNy(), col, row);
+        Ray RayToRender = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
         Color color = rayTracerBase.traceRay(RayToRender);
-        return color;
-
+        imageWriter.writePixel(j, i, color);
 
     }
 
@@ -120,10 +119,14 @@ public class Camera {
             throw new MissingFormatArgumentException("fields cannot get null");
         }
       //  throw new UnsupportedOperationException(); //check where should be
+        int Nx =  imageWriter.getNx();
+        int Ny =  imageWriter.getNy();
 
-        for (int i = 0; i < imageWriter.getNx(); i++) {
-            for (int j = 0; j < imageWriter.getNy(); j++) {
-                imageWriter.writePixel(i, j, CastRay(i, j));
+
+        for (int i = 0; i < Ny; i++) {
+            for (int j = 0; j < Nx; j++) {
+                CastRay(Nx,Ny,i,j);
+
             }
         }
     }

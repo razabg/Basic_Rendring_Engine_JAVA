@@ -89,10 +89,6 @@ public class Polygon extends Geometry {
 		return _plane.getNormal();
 	}
 
-	@Override
-	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-		return null;
-	}
 
 	/**
 	 * we've learned the calculations from the introduction lecture
@@ -100,9 +96,9 @@ public class Polygon extends Geometry {
 	 * @return the list of intersection points
 	 */
 	@Override
-	public List<Point> findIntersections(Ray ray) {
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 
-		List<Point> result = _plane.findIntersections(ray);
+		List<GeoPoint> result = _plane.findGeoIntersections(ray);
 
 		if (result == null) {
 			return result;
@@ -140,8 +136,11 @@ public class Polygon extends Geometry {
 			}
 		}
 
-		return result;
+		return List.of(new GeoPoint(this,result.get(0).point));
 
 
 	}
+
+
+
 }

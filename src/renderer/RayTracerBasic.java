@@ -36,8 +36,9 @@ public class RayTracerBasic extends RayTracerBase {
         if (IntersectPoints == null)
             return scene.background;
         else {
+
             GeoPoint closetPoint = ray.findClosestGeoPoint(IntersectPoints);
-            return calcColor(closetPoint);
+            return calcColor(closetPoint,ray);
         }
 
     }
@@ -49,9 +50,10 @@ public class RayTracerBasic extends RayTracerBase {
      * @param point
      * @return
      */
-    private Color calcColor(Point point){
-
-       return scene.ambientLight.getIntensity();
+    private Color calcColor(GeoPoint point,Ray ray){
+       Color result =  scene.ambientLight.getIntensity();
+       result = result.add(point.geometry.getEmission());
+       return result;
 
 }
 

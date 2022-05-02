@@ -50,12 +50,6 @@ public class Plane extends Geometry {
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        return null;
-    }
-
-    @Override
-    public List<Point> findIntersections(Ray ray)
-    {
         Point P0= ray.getP0();
         Vector v= ray.getDir();
         Vector n = _normal;
@@ -68,7 +62,7 @@ public class Plane extends Geometry {
         {
             return null;
         }
-            Vector Q_P0= _q0.subtract(P0);
+        Vector Q_P0= _q0.subtract(P0);
 
         double nQMinusP0= alignZero(n.dotProduct(Q_P0));
 
@@ -83,13 +77,13 @@ public class Plane extends Geometry {
             // return immutable List
             //return List.of(P0.add(v.Scale(t)));
 
-            return List.of(ray.getPoint(t));
+            return List.of(new GeoPoint(this, ray.getPoint(t)));
         }
-       // else
-     //   {
-            return  null;
-      //  }
-
-
+        // else
+        //   {
+        return  null;
+        //  }
     }
+
+
 }

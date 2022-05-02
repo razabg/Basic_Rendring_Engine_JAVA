@@ -31,17 +31,12 @@ public class Geometries extends Intersectable {
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-      return null;
-    }
-
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> result=null;
+        List<GeoPoint> result=null;
 
         //TODO comment here
         for (var item: _intersectables)
         {
-            List <Point> itemList= item.findIntersections(ray);
+            List <GeoPoint> itemList= item.findGeoIntersections(ray);
 
             if(itemList!= null) {
                 if(result==null)
@@ -54,4 +49,7 @@ public class Geometries extends Intersectable {
 
         return result;
     }
+
+
+
 }

@@ -12,8 +12,6 @@ public abstract class Geometry extends Intersectable {
    protected Color emission = Color.BLACK;
 
 
-
-
    /**
     * the method return the orthogonal vector
     * @param point

@@ -54,29 +54,31 @@ public abstract class Intersectable {
         }
     }
 
+    /**
+     * nvi pattern
+     * @param ray
+     * @return
+     */
     public List<GeoPoint> findGeoIntersections(Ray ray){
       return   findGeoIntersectionsHelper(ray);
     }
 
      protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
-    public abstract List<Point> findIntersections(Ray ray);
+        //public abstract List<Point> findIntersections(Ray ray);
 
+    /**
+     * find all intersection {@link Point}s to the specific object
+     *
+     * @param ray ray toward the object
+     */
+    public final List<Point> findIntersections(Ray ray) {
+        List<GeoPoint> geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
     }
+}
 
 
-/**
- * find all intersection {@link Point}s to the specific object
- *
- * @param ray ray toward the object
- */
-// public final List<Point> findIntersections(Ray ray){
-//    List<Point> geoList=findGeoIntersections(ray);
-//      return geoList==null?null
-//            :geoList.stream().map(gp->gp.point).toList();
-//  }
 
-// private List<Point> findGeoIntersections(Ray ray) {
-
-//  }
 
 
