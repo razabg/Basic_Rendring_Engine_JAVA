@@ -2,7 +2,11 @@ package scene;
 
 import lighting.AmbientLight;
 import geometries.Geometries;
+import lighting.LightSource;
 import primitives.Color;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *  the class represents a scene in the real life - containing different geometries that captured by the camera
@@ -13,6 +17,7 @@ public class Scene {
     public final Color background; //the background color of the scene
     public final AmbientLight ambientLight;//environmental light in the scene
     public final Geometries geometries;//list of geometries
+    public  List<LightSource> lights = new LinkedList<>(); //list of light source
 
 
 
@@ -21,6 +26,7 @@ public class Scene {
         background = builder.background;
         ambientLight = builder.ambientLight;
         geometries = builder.geometries;
+        lights = builder.lights;
     }
 
     /**
@@ -32,11 +38,12 @@ public class Scene {
     }
 
     /**
-     * bulider pattern
+     * bulider pattern 
      */
     public static class SceneBuilder {
 
         private final String name;
+        private List<LightSource> lights;
         private Color background = Color.BLACK;
         private AmbientLight ambientLight = new AmbientLight();
         private Geometries geometries = new Geometries();
@@ -58,6 +65,11 @@ public class Scene {
 
         public SceneBuilder setGeometries(Geometries geometries) {
             this.geometries = geometries;
+            return this;
+        }
+
+        public SceneBuilder setLights(List<LightSource> lights) {
+            this.lights = lights;
             return this;
         }
 

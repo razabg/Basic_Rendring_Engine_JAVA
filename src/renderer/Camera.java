@@ -135,10 +135,6 @@ public class Camera {
 
 
 
-
-
-
-
     /**
      * the method will create grid of lines
      * @param interval

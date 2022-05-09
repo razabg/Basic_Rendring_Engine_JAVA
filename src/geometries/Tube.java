@@ -132,7 +132,7 @@ public class Tube extends Geometry {
         else // t2 is behind the head
             return List.of(new GeoPoint(this, ray.getPoint(t1)));
 
-      //TODO
+
     }
 
 }

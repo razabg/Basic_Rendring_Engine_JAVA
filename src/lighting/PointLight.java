@@ -37,15 +37,32 @@ public class PointLight extends Light implements LightSource {
 
     }
 
+    /**
+     * the method calc the color of the light in a given point in the 3D space
+     *
+     * @param p - the point which we want to know what its color
+     * @return the light color in p
+     */
     @Override
     public Color getIntensity(Point p) {
-        return null;
-    }
 
+
+            double dist = p.distance(position);
+            double distSquared = p.distanceSquared(position);
+            return getIntensity().scale(1 / (kC + kL * dist + kQ * distSquared));
+        }
+
+    /**
+     * the method get the ray from the light source to the given point
+     *
+     * @param p - the ray's destination point
+     * @return the ray - the normalized(p - pL)
+     */
     @Override
     public Vector getL(Point p) {
-        return null;
-    }
+            return p.subtract(position).normalize();
+        }
+
 
 
     /**

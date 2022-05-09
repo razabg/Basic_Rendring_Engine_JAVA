@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-// TODO implement this tests from eliezer's github and from the slides of the lectures
+
 
 class PlaneTest {
 
