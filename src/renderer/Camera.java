@@ -21,7 +21,7 @@ public class Camera {
     private double _distance;//object's actual distance from the camera center
 
     private int _width;//actual width
-    private int _height;//actual height//
+    private int _height;//actual height
 
     private ImageWriter imageWriter; //the object create the image
     private RayTracerBase rayTracerBase;//the object used to trace rays for the rendering engine

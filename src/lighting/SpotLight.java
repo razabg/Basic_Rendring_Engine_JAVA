@@ -17,6 +17,7 @@ public class SpotLight extends PointLight {
      *  direction - the direction of the light
      */
     private Vector direction;
+    private double narrowBeam = 0d;
 
     /**
      * constructor
@@ -30,4 +31,12 @@ public class SpotLight extends PointLight {
         this.direction = direction.normalize();
     }
 
+    public SpotLight setNarrowBeam(double narrowBeam) {
+        this.narrowBeam = narrowBeam;
+        return this;
+    }
+
+    public double getNarrowBeam() {
+        return narrowBeam;
+    }
 }

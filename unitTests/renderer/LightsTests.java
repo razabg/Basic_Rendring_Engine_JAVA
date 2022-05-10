@@ -9,6 +9,10 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import static java.awt.Color.*;
 
 
@@ -19,9 +23,12 @@ import static java.awt.Color.*;
  */
 
 public class LightsTests {
-	private Scene scene1 = new Scene.SceneBuilder("Test scene").build();
+	List<LightSource> temp = new LinkedList<>();
+	private Scene scene1 = new Scene.SceneBuilder("Test scene").setLights(temp)
+			.build();
 	private Scene scene2 = new Scene.SceneBuilder("Test scene") //
-			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15))).build();
+			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15))).setLights(temp)
+			.build();
 	private Camera camera1 = new Camera.CameraBuilder(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setVPSize(150, 150) //
 			.setVPDistance(1000)
@@ -62,6 +69,8 @@ public class LightsTests {
 		Camera camera_temp = new Camera.CameraBuilder(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
 				.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene1)) //
+				.setVPSize(150, 150) //
+				.setVPDistance(1000)
 				.build();
 				camera_temp.renderImage(); //
 				camera_temp.writeToImage();
@@ -207,7 +216,7 @@ public class LightsTests {
 	public void sphereSpotSharp() {
 		scene1.geometries.add(sphere);
 		scene1.lights
-				.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
+				.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).set_kL(0.001).set_kQ(0.00004));
 
 		ImageWriter imageWriter = new ImageWriter("lightSphereSpotSharp", 500, 500);
 
@@ -216,7 +225,8 @@ public class LightsTests {
 				.setVPSize(150, 150) //
 				.setVPDistance(1000)
 				.setImageWriter(imageWriter)
-				.setRayTracer(new RayTracerBasic(scene1)).build();
+				.setRayTracer(new RayTracerBasic(scene1))
+			 	.build();
 	 camera_temp.renderImage();
 	 camera_temp.writeToImage();
 
@@ -233,7 +243,7 @@ public class LightsTests {
 	@Test
 	public void trianglesSpotSharp() {
 		scene2.geometries.add(triangle1, triangle2);
-		scene2.lights.add(new SpotLight(trCL, trPL, trDL).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
+		scene2.lights.add(new SpotLight(trCL, trPL, trDL).setNarrowBeam(10).set_kL(0.001).set_kQ(0.00004));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesSpotSharp", 500, 500);
 
@@ -241,7 +251,8 @@ public class LightsTests {
 				.setVPSize(200, 200) //
 				.setVPDistance(1000)
 				 .setImageWriter(imageWriter)
-				 .setRayTracer(new RayTracerBasic(scene2)).build();
+				 .setRayTracer(new RayTracerBasic(scene2))
+				 .build();
 
 		 camera_temp.renderImage();
 		 camera_temp.writeToImage();
