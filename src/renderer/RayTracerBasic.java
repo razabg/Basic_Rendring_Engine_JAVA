@@ -10,11 +10,18 @@ import geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  *class used to trace rays for the rendering engine
  */
 public class RayTracerBasic extends RayTracerBase {
+
+
+    /**
+     * constant size of start points of rays for shading rays
+     */
+    private static final double DELTA = 0.1;
 
     /**
      * constructor
@@ -122,6 +129,53 @@ public class RayTracerBasic extends RayTracerBase {
         return result;
 
     }
+
+
+    /**
+     //     * boolean method test whether a given point is shaded or not
+     //     *
+     //     * @param light    - the light source which we check if the point is shaded from
+     //     * @param l        - the vector between the light source and the point
+     //     * @param n        - the normal of l with the body
+     //     * @param geoPoint - the tested point
+     //     * @return true if the point is shaded, false otherwise
+     //     */
+   private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geoPoint) {
+
+       Ray lightRay;
+       Vector lightDirection = l.scale(-1); // from point to light source
+
+       double nv = alignZero(n.dotProduct(lightDirection));
+
+       // if not orthogonal
+       if (!isZero(nv)) {
+           // create new vector to help move the head of
+           // the vector to the correct position
+           Vector fixVector = n.scale(nv > 0 ? DELTA : -DELTA);
+           // move the head of the vector in the right direction
+           Point pointToChange = geoPoint.point.add(fixVector);
+            lightRay = new Ray(pointToChange, lightDirection);
+       }
+       else
+            lightRay = new Ray(geoPoint.point, lightDirection);
+
+
+       List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+
+      if (intersections == null) {
+           return true;
+       }
+
+       double maxDistance = light.getDistance(geoPoint.point);
+
+       for (GeoPoint gp : intersections) {
+           if (alignZero(gp.point.distance(geoPoint.point) - maxDistance) <= 0
+                   && isZero(gp.geometry.getMaterial().Kt)) {
+                return false;
+            }
+        }
+        return true;
+   }
 
 
 }

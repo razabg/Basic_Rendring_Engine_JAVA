@@ -1,11 +1,32 @@
 package primitives;
 
 public class Material {
-
+    /**
+     *  Kd - diffuse component, represents the scattering of light rays to all directions from the surface
+     */
     public Double3 kD = new Double3(0,0,0);
-    public Double3 kS = new Double3(0,0,0);
-    public int nShininess = 0;
 
+    /**
+     *  Ks - specular component, represents the reflectance of the light source over the surface
+     */
+    public Double3 kS = new Double3(0,0,0);
+
+    /**
+     *  Shininess - how shiny the material is
+     */
+    public int nShininess = 0;
+    /**
+     *  Kt - transparency component
+     * 0.0 is sealed
+     * 1.0 is clear
+     */
+    public double Kt = 0.0;
+    /**
+     *  Kr - reflection component
+     * 0.0 is matte
+     * 1.0 is very reflexive
+     */
+    public double Kr = 0.0;
     /**
      * set the kd
      * @param kD Double3

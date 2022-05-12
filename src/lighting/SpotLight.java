@@ -54,4 +54,7 @@ public class SpotLight extends PointLight {
     public double getNarrowBeam() {
         return narrowBeam;
     }
+
+
+
 }
