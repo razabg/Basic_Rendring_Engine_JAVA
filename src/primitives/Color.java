@@ -9,6 +9,9 @@ package primitives;
  * @author Dan Zilberstein
  */
 public class Color {
+    public static final Color RED = new Color(255,0,0);
+	public static final Color  WHITE = new Color (255,255,255) ;
+	public static final Color YELLOW = new Color (255,255,0) ;
 	/**
 	 * The internal fields tx`o maintain RGB components as double numbers from 0 to
 	 * whatever...
