@@ -54,6 +54,9 @@ public class LightsTests {
 	private Geometry sphere = new Sphere(new Point(0, 0, -50), 50d) //
 			.setEmission(new Color(BLUE).reduce(2)) //
 			.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
+	private Geometry sphere_zero = new Sphere(new Point(0, 0, 0), 20d)
+			.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)).setEmission(new Color(blue).reduce(2));
+	//
 
 
 	/**
@@ -266,10 +269,11 @@ public class LightsTests {
 
 			scene2.geometries.add(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)),
 					triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)));
-			scene2.lights.add(new DirectionalLight(new Color(300, 150, 150), new Vector(0, -0.05, -1)));
-			scene2.lights.add(new PointLight(new Color(100, 250, 250), new Point(50, -10, -130)) //
-					.set_kL(0.0005).set_kQ(0.0005));
-			scene2.lights.add(new SpotLight(new Color(500, 500, 500), new Point(-50, 50, -130), new Vector(-2, -2, -1)) //
+			scene2.geometries.add(sphere_zero);
+			//scene2.lights.add(new DirectionalLight(new Color(300, 150, 150), new Vector(0, -0.05, -1)));
+			//scene2.lights.add(new PointLight(new Color(100, 250, 250), new Point(50, -10, -130)) //
+				//	.set_kL(0.0005).set_kQ(0.0005));
+			scene2.lights.add(new SpotLight(new Color(white), new Point(-100, 80, 0), new Vector(0, 0, -1)) //
 					.set_kL(0.0001).set_kQ(0.000005));
 
 			ImageWriter imageWriter = new ImageWriter("allLightTriangles", 500, 500);
