@@ -10,11 +10,39 @@ import geometries.Intersectable.GeoPoint;
  * this class implement Ray
  */
 public class Ray {
+
+
+    /**
+     *  _p0 - starting point of Ray
+     */
     Point p0;
+    /**
+     *  _dir - the point the Ray points to from p0
+     */
     Vector dir;
+
+
+    /**
+     * constant size of start points of rays for shading rays
+     */
+    private static final double DELTA = 0.1;
+
 
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
+        this.dir = dir.normalize();
+    }
+
+    /**
+     * constructor for ray.
+     *  creates a new ray and moves its head in the
+     *  normal direction by the normal scaled by DELTA
+     * @param p0
+     * @param n
+     * @param dir
+     */
+    public Ray(Point p0, Vector n,Vector dir) {
+        this.p0 = p0.add(n.scale(DELTA));
         this.dir = dir.normalize();
     }
 

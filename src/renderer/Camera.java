@@ -155,7 +155,9 @@ public class Camera {
         }
     }
 
-        /**
+
+
+    /**
          * Implementation of builder pattern.
          */
         public static class CameraBuilder {
@@ -307,6 +309,16 @@ public class Camera {
         return this;
     }
 
+
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
     }
+
+    public Camera setRayTracer(RayTracerBase rayTracerBase) {
+        this.rayTracerBase = rayTracerBase;
+        return this;
+    }
+}
 
 

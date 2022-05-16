@@ -11,7 +11,7 @@ import static primitives.Util.isZero;
 /**
  * this class implement the plane geometry
  */
-public class Plane extends Geometry {
+public class Plane extends Geometry implements FlatGeometry {
 
 
     final Point _q0;
@@ -49,7 +49,7 @@ public class Plane extends Geometry {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         Point P0= ray.getP0();
         Vector v= ray.getDir();
         Vector n = _normal;
@@ -72,17 +72,16 @@ public class Plane extends Geometry {
             return null;
         }
         double t = alignZero(nQMinusP0 / nv);
-        if (t > 0)
+        if (alignZero(t-maxDistance) > 0 || t < 0)
         {
+            return null;
             // return immutable List
             //return List.of(P0.add(v.Scale(t)));
 
-            return List.of(new GeoPoint(this, ray.getPoint(t)));
+
         }
-        // else
-        //   {
-        return  null;
-        //  }
+         return List.of(new GeoPoint(this, ray.getPoint(t)));
+
     }
 
 

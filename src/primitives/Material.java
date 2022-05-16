@@ -76,4 +76,24 @@ public class Material {
         this.nShininess = nShininess;
         return  this;
     }
+
+    /**
+     * set Shininess
+     * @param  kt - transparency component
+     * @return
+     */
+    public Material setKt(double kt) {
+       this.Kt = kt;
+        return this;
+    }
+
+    /**
+     * set Shininess
+     * @param  kr - reflection component
+     * @return
+     */
+    public Material setKr(double kr) {
+       this. Kr = kr;
+        return this;
+    }
 }

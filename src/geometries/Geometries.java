@@ -30,7 +30,7 @@ public class Geometries extends Intersectable {
 
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         List<GeoPoint> result=null;
 
         //TODO comment here

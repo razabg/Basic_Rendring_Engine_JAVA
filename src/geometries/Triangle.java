@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
 /**
  * this class implement the triangle geometry
  */
-public class Triangle extends Polygon {
+public class Triangle extends Polygon implements FlatGeometry {
 
 
     public Triangle(Point... vertices) {
@@ -35,7 +35,7 @@ public class Triangle extends Polygon {
      */
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
 
 
         List<GeoPoint> result = _plane.findGeoIntersections(ray);

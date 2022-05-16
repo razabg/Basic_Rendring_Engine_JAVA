@@ -14,9 +14,9 @@ import java.util.List;
 public class Scene {
 
     public final String name;   //the name of the scene
-    public final Color background; //the background color of the scene
-    public final AmbientLight ambientLight;//environmental light in the scene
-    public final Geometries geometries;//list of geometries
+    public  Color background; //the background color of the scene
+    public  AmbientLight ambientLight;//environmental light in the scene
+    public  Geometries geometries;//list of geometries
     public  List<LightSource> lights = new LinkedList<>(); //list of light source
 
 
@@ -36,6 +36,8 @@ public class Scene {
     public Color getBackground() {
         return background;
     }
+
+
 
     /**
      * bulider pattern 
@@ -80,5 +82,10 @@ public class Scene {
         }
 
 
+    }
+
+    public Scene setAmbientLight(AmbientLight ambientLight) {
+        this.ambientLight = ambientLight;
+        return this;
     }
 }

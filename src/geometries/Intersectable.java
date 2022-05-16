@@ -54,17 +54,25 @@ public abstract class Intersectable {
         }
     }
 
+
+
+
     /**
      * nvi pattern
      * @param ray
      * @return
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray){
-      return   findGeoIntersectionsHelper(ray);
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
-     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
-        //public abstract List<Point> findIntersections(Ray ray);
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+
+
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
+
 
     /**
      * find all intersection {@link Point}s to the specific object

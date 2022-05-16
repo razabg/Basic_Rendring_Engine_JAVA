@@ -52,8 +52,16 @@ public class Tube extends Geometry {
         return (point.subtract(O)).normalize();
     }
 
+
+    /**
+     * the method finds the intersection points of a given ray with the tube
+     * {@see <a href = "https://mrl.cs.nyu.edu/~dzorin/ug-graphics/lectures/lecture20/lecture20.pdf"></a>}
+     * @param maxDistance - the upper bound of distance, any point which
+     *                    its distance is greater than this bound will not be returned
+     * @return list of intersection points that were found
+     */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
 
 
         Vector vAxis = _axisRay.getDir();
@@ -127,11 +135,12 @@ public class Tube extends Geometry {
         double t2 = alignZero(tm - th);
 
         // if both t1 and t2 are positive
-        if (t2 > 0)
+        if (t2 > 0 && alignZero(t2 - maxDistance) < 0)
             return List.of(new GeoPoint(this, ray.getPoint(t1)),new GeoPoint(this, ray.getPoint(t2)));
-        else // t2 is behind the head
+        else if (alignZero(t1 - maxDistance) < 0 )// t2 is behind the head
             return List.of(new GeoPoint(this, ray.getPoint(t1)));
 
+        return null;
 
     }
 
