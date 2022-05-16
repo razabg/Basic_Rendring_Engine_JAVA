@@ -103,7 +103,7 @@ public class Polygon extends Geometry implements FlatGeometry  {
 		if (result == null) {
 			return result;
 		}
-
+//
 		Point P0 = ray.getP0();
 		Vector v = ray.getDir();
 
