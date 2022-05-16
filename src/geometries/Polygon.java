@@ -105,7 +105,7 @@ public class Polygon extends Geometry implements FlatGeometry  {
 		}
 //
 		Point P0 = ray.getP0();
-		Vector v = ray.getDir();
+		Vector v = ray.getDir();//
 
 		Point P1 = _vertices.get(1);
 		Point P2 = _vertices.get(0);
