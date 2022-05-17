@@ -6,7 +6,7 @@ import primitives.Ray;
 import java.util.*;
 
 public class Geometries extends Intersectable {
-
+    //TODO documentation
     private List<Intersectable> _intersectables;
 
     public Geometries(Intersectable... intersectables)
@@ -33,7 +33,7 @@ public class Geometries extends Intersectable {
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         List<GeoPoint> result=null;
 
-        //TODO comment here
+
         for (var item: _intersectables)
         {
             List <GeoPoint> itemList= item.findGeoIntersections(ray);

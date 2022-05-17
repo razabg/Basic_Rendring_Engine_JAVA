@@ -9,7 +9,7 @@ import primitives.Vector;
  */
 public class Cylinder extends Tube {
 
-    //todo myabe add findintersection
+    //todo myabe add findintersection and document...
     double _height;
 
     public Cylinder(Ray axisRay, double radius, double height) {

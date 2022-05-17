@@ -1,7 +1,10 @@
 package geometries;
 
+import primitives.Vector;
+
 /**
  * marker interface for flat Geometry 
  */
-public interface FlatGeometry {
+public abstract class FlatGeometry extends Geometry {
+protected Vector normal;
 }

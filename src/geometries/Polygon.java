@@ -11,7 +11,7 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon extends Geometry implements FlatGeometry  {
+public class Polygon extends FlatGeometry  {
 	/**
 	 * List of polygon's vertices
 	 */
@@ -82,11 +82,12 @@ public class Polygon extends Geometry implements FlatGeometry  {
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
 		}
 		size = vertices.length;
+		this.normal = n;
 	}
 
 	@Override
 	public Vector getNormal(Point point) {
-		return _plane.getNormal();
+		return this.normal;
 	}
 
 

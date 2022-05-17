@@ -7,15 +7,15 @@ import java.util.List;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
-
+//todo documentation
 /**
  * this class implement the plane geometry
  */
-public class Plane extends Geometry implements FlatGeometry {
+public class Plane extends  FlatGeometry {
 
 
     final Point _q0;
-    final Vector _normal;
+   // final Vector _normal; //todo may cause problems
 
     public Plane(Point p1, Point p2, Point p3) {
         _q0 = p1;
@@ -24,12 +24,12 @@ public class Plane extends Geometry implements FlatGeometry {
 
         Vector N = U.crossProduct(V);
 
-        _normal = N.normalize();
+       normal = N.normalize();
     }
 
     public Plane(Point q0, Vector normal) {
         _q0 = q0;
-        _normal = normal;
+       normal = normal.normalize();
     }
 
 
@@ -38,21 +38,20 @@ public class Plane extends Geometry implements FlatGeometry {
     }
 
     public Vector getNormal() {
-        return _normal;
+        return this.normal;
     }
 
 
     @Override
     public Vector getNormal(Point point) {
-        return _normal;
+        return normal;
 
     }
-
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         Point P0= ray.getP0();
         Vector v= ray.getDir();
-        Vector n = _normal;
+        Vector n = normal;
 
 
         double nv = n.dotProduct(v);

@@ -20,13 +20,13 @@ public class Material {
      * 0.0 is sealed
      * 1.0 is clear
      */
-    public double Kt = 0.0;
+    public Double3 Kt = 0.0;
     /**
      *  Kr - reflection component
      * 0.0 is matte
      * 1.0 is very reflexive
      */
-    public double Kr = 0.0;
+    public Double3 Kr = 0.0;
     /**
      * set the kd
      * @param kD Double3
@@ -82,7 +82,7 @@ public class Material {
      * @param  kt - transparency component
      * @return
      */
-    public Material setKt(double kt) {
+    public Material setKt(Double3 kt) {
        this.Kt = kt;
         return this;
     }

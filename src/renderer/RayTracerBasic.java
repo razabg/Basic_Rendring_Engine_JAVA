@@ -19,6 +19,25 @@ import static primitives.Util.isZero;
 public class RayTracerBasic extends RayTracerBase {
 
 
+
+
+    /**
+     * how many reflections we want to calculate - The maximum value of the tree height (number of intersections) for reflection/refraction calculations for a geometry the camera sees.
+     * Stop condition for transparency (reflection: the rays hit the geometric body, and they can get to other geometric bodies):
+     * how far we consider calculating the ray's intersections with other geometries which are behind original geometry.
+     * Stop condition for refraction (the rays that cross the geometric body):
+     * how far we consider calculating the intersections of the rays which created by refractions in the original geometric body.
+     * <p>
+     * USE WITH CAUTION! higher values leads to performance decreasing rapidly
+     */
+    private static final int MAX_CALC_COLOR_LEVEL = 10; // 10
+
+    /**
+     * the minimum value of transparency/refraction to be considered if the calculation
+     * for reflection/refraction is necessary in the current geometry.
+     */
+    private static final double MIN_CALC_COLOR_K = 0.001; // 0.001
+
     /**
      * constant size of start points of rays for shading rays
      */
@@ -162,4 +181,32 @@ public class RayTracerBasic extends RayTracerBase {
         return Intersections == null;
 
     }
+
+    private double transparency(GeoPoint gp, LightSource light, Vector l, Vector n,double nv) {// Pay attention to your method of distance screening
+
+        Vector LightDirection = l.scale(-1);// from the point to the light source
+        Vector DELTA_vector = n.scale(nv < 0 ? DELTA : -DELTA);
+        Point point = gp.point;
+        Point pointRay = point.add(DELTA_vector);
+        Ray LightRay = new Ray(pointRay,LightDirection);
+
+
+        double maxDistacne = light.getDistance(point);
+
+        List<GeoPoint> Intersections = scene.geometries.findGeoIntersections(LightRay,maxDistacne);
+        if (Intersections == null)
+            return 1.0;
+
+        Double3 ktr = Double3.ONE;
+//        loop over intersections and for each intersection which is closer to the
+//        point than the light source multiply ktr by 𝒌𝑻 of its geometry.
+//        Performance: if you get close to 0 – it’s time to get out (return 0)
+        for (var geometry:Intersections)
+        {
+            ktr = ktr.product(geometry.geometry.getMaterial().Kt);
+        }
+
+        return ktr;
+
+
 }
