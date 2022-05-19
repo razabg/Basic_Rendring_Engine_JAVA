@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
 /**
  * this class implement the triangle geometry
  */
-public class Triangle extends Polygon implements FlatGeometry {
+public class Triangle extends Polygon{
 
 
     public Triangle(Point... vertices) {
