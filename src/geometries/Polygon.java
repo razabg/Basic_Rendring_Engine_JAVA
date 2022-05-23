@@ -54,7 +54,7 @@ public class Polygon extends FlatGeometry  {
 		if (vertices.length == 3)
 			return; // no need for more tests for a Triangle
 
-		Vector n = _plane.getNormal();
+		Vector n = _plane.getNormal(null);
 
 		// Subtracting any subsequent points will throw an IllegalArgumentException
 		// because of Zero Vector if they are in the same point
@@ -82,12 +82,13 @@ public class Polygon extends FlatGeometry  {
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
 		}
 		size = vertices.length;
-		this.normal = n;
+		//this.normal = n;
 	}
 
 	@Override
 	public Vector getNormal(Point point) {
-		return this.normal;
+		//return this.normal;
+		return _plane.getNormal(null);
 	}
 
 

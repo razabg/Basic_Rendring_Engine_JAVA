@@ -17,6 +17,8 @@ import static primitives.Util.isZero;
 /**
  *class used to trace rays for the rendering engine
  */
+
+//TODO documentations
 public class RayTracerBasic extends RayTracerBase {
 
     /**
@@ -75,7 +77,7 @@ public class RayTracerBasic extends RayTracerBase {
      * function which returns the color of the object the ray is intersecting
      * if no intersection was found, returns the ambient light's color
      *
-     * @param point
+     * @param geopoint
      * @return
      */
     private Color calcColor(GeoPoint geopoint, Ray ray) {
@@ -118,11 +120,10 @@ public class RayTracerBasic extends RayTracerBase {
         Vector v = ray.getDir();
         Vector n = geometry.getNormal(point);
 
-
         double nv = alignZero(n.dotProduct(v));
-        if (nv == 0)
-            return color;
-        Material material = gp.geometry.getMaterial();
+        if (nv==0)
+            return color.BLACK;
+        Material material = geometry.getMaterial();
 
 
         for (LightSource lightSource : scene.lights) {
@@ -147,7 +148,8 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, Double3 k) {
-        Color color = Color.BLACK; Vector n = gp.geometry.getNormal(gp.point);
+        Color color = Color.BLACK;
+        Vector n = gp.geometry.getNormal(gp.point);
         Material material = gp.geometry.getMaterial();
         Double3 kkr = material.Kr.product(k);
         if (!kkr.lowerThan(MIN_CALC_COLOR_K))
@@ -189,7 +191,7 @@ public class RayTracerBasic extends RayTracerBase {
             return null;
 
         Vector r = v.subtract(n.scale( 2*vn));
-        return new Ray(point,r,n);
+        return new Ray(point,n,r);
     }
 
 
@@ -235,63 +237,76 @@ public class RayTracerBasic extends RayTracerBase {
      *  @param geoPoint - the tested point
      * @return true if the point is shaded, false otherwise
      */
-    private boolean unshaded(GeoPoint geoPoint, LightSource lightSource,Vector l, Vector n, double nl,double nv) {
+    private boolean unshaded (GeoPoint geoPoint, LightSource lightSource,Vector l, Vector n, double nl,double nv)
+    {
         Vector LightDirection = lightSource.getL(geoPoint.point).scale(-1);// from the point to the light source
 
         Vector DELTA_vector = n.scale(nv < 0 ? DELTA : -DELTA);
         Point pointRay = geoPoint.point.add(DELTA_vector);
-        Ray LightRay = new Ray(pointRay,LightDirection);
+        Ray LightRay = new Ray(pointRay, LightDirection);
 
         double maxDistacne = lightSource.getDistance(geoPoint.point);
 
-        List<GeoPoint> Intersections = scene.geometries.findGeoIntersections(LightRay,maxDistacne);
+        List<GeoPoint> Intersections = scene.geometries.findGeoIntersections(LightRay, maxDistacne);
 
-        return Intersections == null;
+        //TODO may cause a problems
+        if (Intersections!= null) {
+            for (GeoPoint gp : Intersections) {
+                if (gp.geometry.getMaterial().Kt.equals(Double3.ZERO)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+            return true;
+
 
     }
 
 
-    /**
-     * the method determine the level of transparency of the point
-     *
-     * @param light    - the light source which we measure the distance from
-     * @param l        - the vector between the light source and the point
-     * @param n        - the normal in the point
-     * @param gp       - the tested point
-     * @param nv       - n*v
-     * @return the transparency value
-     */
-    private Double3 transparency(GeoPoint gp, LightSource light, Vector l, Vector n,double nv) {// Pay attention to your method of distance screening
-        Ray LightRay;
-        Vector LightDirection = l.scale(-1);// from the point to the light source
-        Point point = gp.point;
+        /**
+         * the method determine the level of transparency of the point
+         *
+         * @param light    - the light source which we measure the distance from
+         * @param l        - the vector between the light source and the point
+         * @param n        - the normal in the point
+         * @param gp       - the tested point
+         * @param nv       - n*v
+         * @return the transparency value
+         */
+        private Double3 transparency (GeoPoint gp, LightSource light, Vector l, Vector n,double nv)
+        {// Pay attention to your method of distance screening
+            Ray LightRay;
+            Vector LightDirection = l.scale(-1);// from the point to the light source
+            Point point = gp.point;
 
-        if (nv < 0)
-            LightRay =new Ray(point,n,LightDirection);
-        else
-            LightRay = new Ray(point,n.scale(-1),LightDirection);
+            if (nv < 0)
+                LightRay = new Ray(point, n, LightDirection);
+            else
+                LightRay = new Ray(point, n.scale(-1), LightDirection);
 
 
-        double maxDistacne = light.getDistance(point);
+            double maxDistacne = light.getDistance(point);
 
-        List<GeoPoint> Intersections = scene.geometries.findGeoIntersections(LightRay,maxDistacne);
-        if (Intersections == null)
-            return Double3.ONE;
+            List<GeoPoint> Intersections = scene.geometries.findGeoIntersections(LightRay, maxDistacne);
+            if (Intersections == null)
+                return Double3.ONE;
 
-        Double3 ktr = Double3.ONE;
+            Double3 ktr = Double3.ONE;
 //        loop over intersections and for each intersection which is closer to the
 //        point than the light source multiply ktr by 𝒌𝑻 of its geometry.
 //        Performance: if you get close to 0 – it’s time to get out (return 0)
-        for (var geometry:Intersections)
-        {
-            ktr = ktr.product(geometry.geometry.getMaterial().Kt);
-            if (ktr.lowerThan(MIN_CALC_COLOR_K))
-                return ktr;
+            for (var geometry : Intersections) {
+                ktr = ktr.product(geometry.geometry.getMaterial().Kt);
+                if (ktr.lowerThan(MIN_CALC_COLOR_K))
+                    return ktr;
+            }
+
+            return ktr;
+
+
         }
+    }
 
-        return ktr;
 
-
-}
-
-}

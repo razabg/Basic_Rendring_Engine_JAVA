@@ -14,6 +14,9 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Tests for reflection and transparency functionality, test for partial shadows
  * (with transparency)
@@ -21,7 +24,10 @@ import scene.Scene;
  * @author dzilb
  */
 public class ReflectionRefractionTests {
-	private Scene scene = new Scene.SceneBuilder("Test scene").build();
+
+	List<LightSource> LightSourceInit = new LinkedList<>();
+
+	private Scene scene = new Scene.SceneBuilder("Test scene").setLights(LightSourceInit).build();
 
 	/**
 	 * Produce a picture of a sphere lighted by a spot light
@@ -107,5 +113,121 @@ public class ReflectionRefractionTests {
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
 				camera.writeToImage();
+	}
+
+
+	/**
+	 * Produce a picture of a sphere lighted by a spot light
+	 */
+	@Test
+	public void MyTest() {
+
+		Scene scene = new Scene.SceneBuilder("Test scene")
+				.setBackground(Color.BLACK)
+				.setLights(LightSourceInit)
+				.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)))
+				.build();
+
+		Camera camera = new Camera.CameraBuilder(
+				new Point(10, -20, 60),
+				new Vector(-20, -10, -90),
+				new Vector(0, 1, -1d / 9d))
+				.setVPSize(40, 40)
+				.setVPDistance(50)
+				.build();
+
+
+
+
+		// Geometries
+		//walls and mirror
+		scene.geometries.add(
+
+				new Plane(new Point(100, 0, 0), new Vector(1, 0, 0))
+						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(0).setKt(0).setKr(0))
+						.setEmission((Color.GRAY.add(Color.RED)).reduce(20)),
+
+				new Plane(new Point(-100, 0, 0), new Vector(0, 1, 0))
+						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(0).setKt(0).setKr(0))
+						.setEmission(Color.GRAY.reduce(2)));
+
+
+		scene.lights.add(
+				new SpotLight(
+						new Color(0, 0, 0),
+						new Point(0, 40, 0),
+						new Vector(0, -1, 0)
+				).set_kL(0.0005)
+						.set_kQ(0.000005));
+
+		scene.lights.add(
+				new PointLight(
+						new Color(255, 250, 0),
+						new Point(0, 40, 0))
+						.set_kL(0.001).set_kQ(0.0002));
+
+		scene.lights.add(
+				new DirectionalLight(
+						new Color(50, 50, 50),
+						new Vector(1, -1, -1)));
+
+		scene.geometries.add(
+				new Sphere(new Point(-20, -40, -50), 5)
+						.setEmission(Color.WHITE.reduce(6))
+						.setMaterial(new Material().setkD(1).setkS(1).setnShininess(100).setKt(0).setKr(0.3)));
+
+		scene.geometries.add(
+				new Sphere(new Point(-10, -40, -50), 5)
+						.setEmission(Color.GREEN.reduce(6))
+						.setMaterial(new Material().setkD(1).setkS(1).setnShininess(100).setKt(0).setKr(0.3)));
+
+		scene.geometries.add(
+				new Sphere(new Point(-15, -30, -50), 5)
+						.setEmission(Color.BLUE.reduce(6))
+						.setMaterial(new Material().setkD(1).setkS(1).setnShininess(100).setKt(0).setKr(0.3)));
+
+		scene.geometries.add(
+				new Sphere(new Point(-30, -40, -50), 5)
+						.setEmission(Color.WHITE.reduce(6))
+						.setMaterial(new Material().setkD(1).setkS(1).setnShininess(100).setKt(0).setKr(0.3)));
+
+		scene.geometries.add(
+				new Sphere(new Point(-25, -30, -50), 5)
+						.setEmission(Color.GREEN.reduce(6))
+						.setMaterial(new Material().setkD(1).setkS(1).setnShininess(100).setKt(0).setKr(0.3)));
+
+		scene.geometries.add(
+				new Triangle(
+						new Point(-12, -25, -50),
+						new Point(-28, -25, -50),
+						new Point(-20, -15, -50))
+						.setEmission(Color.BLUE)
+						.setMaterial(new Material().setkD(1).setkS(1).setnShininess(100).setKt(1).setKr(0.3))
+		);
+
+		scene.geometries.add(
+				new Polygon(
+						new Point(-120, -90, -149),
+						new Point(-120, 150, -149),
+						new Point(120, 150, -149),
+						new Point(120, -90, -149)
+				)
+						.setEmission(new Color(40, 40, 40))
+						.setMaterial(new Material().setkD(0).setkS(0).setnShininess(0).setKt(0).setKr(0.3)));
+
+		scene.geometries.add(
+				new Tube(new Ray(
+						new Point(-35, -47, -50),
+						new Vector(1, 0, 0)), 3)
+						.setEmission(Color.RED.reduce(5))
+						.setMaterial(new Material().setkD(0).setkS(0).setnShininess(0).setKt(0).setKr(0.3)
+						));
+
+		ImageWriter imageWriter1 = new ImageWriter("1MyTransparencyTest", 250, 250);
+		camera.setImageWriter(imageWriter1) //
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.renderImage(); //
+		camera.writeToImage();
+
 	}
 }

@@ -23,27 +23,37 @@ public class Ray {
 
 
     /**
-     * constant size of start points of rays for shading rays
+     * constant size of start points of rays for moving shading rays
      */
     private static final double DELTA = 0.1;
 
 
+    /**
+     * c-tor
+     * @param p0
+     * @param dir
+     */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
     }
 
+
     /**
-     * constructor for ray.
+     constructor for ray.
      *  creates a new ray and moves its head in the
      *  normal direction by the normal scaled by DELTA
-     * @param p0
-     * @param n
-     * @param dir
+     * @param p origin
+     * @param n   normal vector
+     * @param dir direction
      */
-    public Ray(Point p0, Vector n,Vector dir) {
-        this.p0 = p0.add(n.scale(DELTA));
+    public Ray(Point p, Vector n, Vector dir) {
         this.dir = dir.normalize();
+        double nv = n.dotProduct(this.dir);
+        Vector delta  =n.scale(DELTA);
+        if (nv < 0)
+            delta = delta.scale(-1);
+        this.p0 = p.add(delta);
     }
 
     @Override

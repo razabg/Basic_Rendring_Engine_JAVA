@@ -15,7 +15,7 @@ public class Plane extends  FlatGeometry {
 
 
     final Point _q0;
-   // final Vector _normal; //todo may cause problems
+    final Vector _normal; //todo may cause problems
 
     public Plane(Point p1, Point p2, Point p3) {
         _q0 = p1;
@@ -24,12 +24,12 @@ public class Plane extends  FlatGeometry {
 
         Vector N = U.crossProduct(V);
 
-       normal = N.normalize();
+       _normal = N.normalize();
     }
 
     public Plane(Point q0, Vector normal) {
         _q0 = q0;
-       normal = normal.normalize();
+       _normal = normal.normalize();
     }
 
 
@@ -38,20 +38,20 @@ public class Plane extends  FlatGeometry {
     }
 
     public Vector getNormal() {
-        return this.normal;
+        return _normal;
     }
 
 
     @Override
     public Vector getNormal(Point point) {
-        return normal;
+        return _normal;
 
     }
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         Point P0= ray.getP0();
         Vector v= ray.getDir();
-        Vector n = normal;
+        Vector n = _normal;
 
 
         double nv = n.dotProduct(v);
