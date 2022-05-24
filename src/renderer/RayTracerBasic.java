@@ -292,7 +292,7 @@ public class RayTracerBasic extends RayTracerBase {
 
         List<GeoPoint> Intersections = scene.geometries.findGeoIntersections(LightRay, maxDistacne);
 
-        //TODO may cause a problems
+
         if (Intersections!= null) {
             for (GeoPoint gp : Intersections) {
                 if (gp.geometry.getMaterial().Kt.equals(Double3.ZERO)) {
