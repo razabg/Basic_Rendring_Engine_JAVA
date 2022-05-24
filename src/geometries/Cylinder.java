@@ -9,17 +9,33 @@ import primitives.Vector;
  */
 public class Cylinder extends Tube {
 
-    //todo myabe add findintersection and document...
+    //todo myabe add findintersection bonus
+
+    /**
+     *  _height - the length of the cylinder from base to base
+     */
     double _height;
 
+    /**
+     * constructor for cylinder.
+     *
+     * @param axisRay - ray for base tube
+     * @param radius  = radius of base tube
+     * @param height  - length of cylinder
+     */
     public Cylinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
         this._height = height;
     }
 
+    /**
+     * getter
+     * @return height of cylinder
+     */
     public double get_height() {
         return _height;
     }
+
 
     @Override
     public String toString() {
@@ -29,6 +45,7 @@ public class Cylinder extends Tube {
                 ", radius=" + _radius +
                 '}';
     }
+
 
     /**
      *

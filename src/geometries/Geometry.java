@@ -5,6 +5,12 @@ import primitives.Material;
 import primitives.Point;
 import primitives.Vector;
 
+
+/**
+ * abstract class for all shapes,
+ * objects with material and emission fields, and getNormal method
+ * (and has the possibility to be intersected)
+ */
 public abstract class Geometry extends Intersectable {
 
    /**
@@ -14,7 +20,7 @@ public abstract class Geometry extends Intersectable {
 
 
    /**
-    * //todo documentation
+    * material type
     */
    private Material material = new Material();
 
@@ -51,6 +57,12 @@ public abstract class Geometry extends Intersectable {
       return this;
    }
 
+   /**
+    * setter of material, chaining method design pattern
+    *
+    * @param material type of material
+    * @return this instance
+    */
    public Geometry setMaterial(Material material) {
       this.material = material;
       return this;
