@@ -88,27 +88,13 @@ public class RayTracerBasic extends RayTracerBase {
 
 
 
-    /**
-     * function which returns the color of the object the ray is intersecting
-     * if no intersection was found, returns the ambient light's color
-     *
-     * @param point
-     * @return
-     */
-//    private Color calcColor(GeoPoint point, Ray ray) {
-//        Color result = scene.ambientLight.getIntensity();
-//        result = result.add(calcLocalEffects(point, ray));
-//        return result;
-//
-//
-//    }
-
 
     /**
      * function which returns the color of the object the ray is intersecting after adding the required effects
      *
-     * @param gp - the gp on the object
-     * @param ray   - ray to the gp
+     * @param gp  - the gp on the object
+     * @param ray - ray to the gp
+     * @param  k  - factor of reflection and refraction so far
      * @return the color in the gp with local effects
      */
     private Color calcLocalEffects(GeoPoint gp, Ray ray,Double3 k) { //implemented by the instruction in the slides
@@ -147,6 +133,15 @@ public class RayTracerBasic extends RayTracerBase {
 
     }
 
+    /**
+     * the method calculate transparency and reflections
+     *
+     * @param gp        - the tested point
+     * @param v         - the vector that goes from the camera through a pixel
+     * @param level     - recursion iterations upper limit
+     * @param k         - initial value
+     * @return the Color of the returned light after calculating all the required effects
+     */
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, Double3 k) {
         Color color = Color.BLACK;
         Vector n = gp.geometry.getNormal(gp.point);
@@ -162,27 +157,72 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
+    /**
+     * the method returns the color of the object the ray is intersecting after adding the required effects
+     * @param kkx   - kR or kT factor multiplied by k - factor of reflection and refraction
+     * @param kx    - kR or kT factor
+     * @param ray   - ray to the point
+     * @param level - recursion level
+     * @return the color in the point with local effects
+     */
     private Color calcGlobalEffect(Ray ray, int level, Double3 kx, Double3 kkx) {
         GeoPoint gp =  findClosestIntersection(ray);
         return (gp == null ? scene.background : calcColor(gp, ray, level-1, kkx).scale(kx));
     }
 
+
+    /**
+     * the method returns the color of the object the ray is intersecting
+     * if no intersection was found, returns the ambient light's color
+     *
+     * @param intersection - closest intersection point on the object
+     * @param ray          - ray to the point
+     * @param level        - recursion iterations upper limit
+     * @param k            - initial value
+     * @return the color in the point with all the effects
+     */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
         Color color = calcLocalEffects(intersection, ray,k);
         return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray.getDir(), level, k));
     }
 
+    /**
+     * the method find the closest geo-point to the starting point of the ray
+     * among all the intersections with an object
+     *
+     * @param ray - the tested ray
+     * @return the closest point  to the ray's starting point
+     */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
         GeoPoint closestPoint =ray.findClosestGeoPoint(intersections);
         return closestPoint;
     }
 
-
+    /**
+     * the method construct the new ray refracted the certain geometry
+     *
+     *
+     * @param n     - the normal in point
+     * @param point - refraction point
+     * @param v     - the normalized ray from the viewer point of view
+     * @return the reflected ray
+     */
     private Ray constructRefractedRay(Point point,Vector v, Vector n) {
-            return new Ray(point,n,v);
+            return new Ray(point,n,v);  // use the constructor with 3 arguments to move the head if needed
     }
 
+
+
+    /**
+     * the method construct the new ray reflected
+     * from a point where another ray hits
+     *
+     * @param n     - the normal in point
+     * @param point - the reflection point
+     * @param v     - the normalized ray from the viewer point of view
+     * @return the reflected ray
+     */
     private Ray constructReflectedRay(Point point,Vector v, Vector n) {
 
         double vn = v.dotProduct(n);
@@ -191,12 +231,15 @@ public class RayTracerBasic extends RayTracerBase {
             return null;
 
         Vector r = v.subtract(n.scale( 2*vn));
+        // use the constructor with 3 arguments to move the head if needed
         return new Ray(point,n,r);
     }
 
 
     /**
-     * @param material
+     *     the method calc the specular component of the light
+     *
+     * @param material the substance of the geometry
      * @param n        normal to the object
      * @param l        ray that going to the object (vector from the light source)
      * @param nl       dot product of n and l
