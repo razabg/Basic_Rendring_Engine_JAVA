@@ -18,7 +18,7 @@ import static primitives.Util.isZero;
  *class used to trace rays for the rendering engine
  */
 
-//TODO documentations
+
 public class RayTracerBasic extends RayTracerBase {
 
     /**
