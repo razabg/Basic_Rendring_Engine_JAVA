@@ -5,9 +5,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.MissingFormatArgumentException;
-import java.util.MissingResourceException;
+import java.util.*;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 public class Camera {
@@ -26,6 +26,49 @@ public class Camera {
     private ImageWriter imageWriter; //the object create the image
     private RayTracerBase rayTracerBase;//the object used to trace rays for the rendering engine
 
+
+    // ******** params for Anti-Aliasing effect *********
+    /**
+     * number of rays in a single pixel for active super sampling
+     */
+    private int numOfRaysInPixel;
+    /**
+     * boolean value to determine anti aliasing
+     */
+    private boolean AntiAliasing;
+
+
+    //todo understand and docu....
+
+    // ***** params for Depth of field effect ****
+    /**
+     * the size of the aperture surface (located in the camera location), the size is relative to a single pixel, example: 1 = one pixel, and so on.
+     * the smaller the aperture the greater the width of the sharpness, (similar to blind view without glasses)
+     * (smaller = more objects in focus, bigger = less objects in focus, stronger blurring)
+     */
+    private double ApertureSize;
+    /**
+     * the distance between the camera's beginning location to the center of focal plane,
+     * forward vision becomes sharper in the distance, the more it's close to the focal plane
+     * (focal plane, the second imaginary plane, in which the beam rays emitted from the matching pixel in the view plane are passing through)
+     */
+    private double FocalDistance;
+    /**
+     * number of rays in the focal plane of the camera (per pixel),
+     * the more rays in focal plane the more quality of the blurring
+     */
+    private int numOfRaysInAperture;
+    /**
+     * boolean value to set whether the camera has depth of field (bokeh) effect of not
+     */
+    private boolean DepthOfField;
+
+    /**
+     * the object help in anti-aliasing renderer
+     */
+    private RayTracerBase tracer;
+
+//todo add to  camera builder
     /**
      * private ctor using the builder design pattern
      *
@@ -80,12 +123,63 @@ public class Camera {
         return new Ray(_p0, Pij.subtract(_p0));
 
     }
+    /**
+     * this function gets the view plane size and a selected pixel,
+     * and return the rays from the view plane which intersects the focal plane
+     *
+     * @param nX - amount of columns in view plane (number of pixels)
+     * @param nY - amount of rows in view plane (number of pixels)
+     * @param j  - X's index
+     * @param i  - Y's index
+     * @return - the list of rays which goes from the pixel through the focal plane
+     */
+    public List<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i) {
+
+        // the returned list of rays
+        List<Ray> rays = new ArrayList<>();
+
+        // add the center ray to the list
+        Ray centerRay = constructRay(nX, nY, j, i);
+        rays.add(centerRay);
+
+        // calculate the actual size of a pixel
+        // pixel height is the division of the view plane height in the number of rows of pixels
+        double pixelHeight = alignZero(_height / nY);   //  Ry = h/Ny
+        // pixel width is the division of the view plane width in the number of columns of pixels
+        double pixelWidth = alignZero(_width / nX);   //  Rx = w/Nx
+
+        if (numOfRaysInPixel != 1) {
+            rays.addAll(centerRay.randomRaysInGrid(
+                    get_vUp(),
+                    get_vRight(),
+                    numOfRaysInPixel,
+                    _distance,
+                    pixelWidth,
+                    pixelHeight)
+            );
+        }
+
+        // if more then one ray is emitted (DOF effect)
+        if (numOfRaysInAperture != 1) {
+            List<Ray> temp_rays = new LinkedList<>();
+            // apertureSize is the value of how many pixels it spreads on
+            double apertureRadius = Math.sqrt(ApertureSize * (pixelHeight * pixelWidth)) / 2d;
+            for (Ray ray : rays) {
+                // creating list of focal rays (from the aperture on the view plane to the point on the focal plane)
+                temp_rays.addAll(ray.randomRaysInCircle(ray.getP0(), get_vUp(), get_vRight(), apertureRadius, numOfRaysInAperture, FocalDistance));
+            }
+            // the original rays included in the temp rays
+            rays = temp_rays;
+        }
+
+        return rays;
+    }
 
     /**
      * the method calc the color of the pixel according to the ray
      *
-     * @param col x axis
-     * @param row y axis
+     * @param nX x axis
+     * @param nY y axis
      * @return color
      */
     private void CastRay(int nX, int nY,int i ,int j) {
@@ -95,6 +189,26 @@ public class Camera {
         imageWriter.writePixel(j, i, color);
 
     }
+
+    //todo implement anti-aliasing
+    /**
+     * Cast beam of rays from the pixel in the view plane to the focal point in the focal plane
+     *
+     * @param nX  - resolution on X axis (number of pixels in row)
+     * @param nY  - resolution on Y axis (number of pixels in column)
+     * @param col - pixel's column number (pixel index in row)
+     * @param row - pixel's row number (pixel index in column)
+     */
+    private void castBeam(int nX, int nY, int col, int row) {
+        List<Ray> rays = this.constructRaysThroughPixel(nX, nY, col, row);
+
+        List<Color> colors = new LinkedList<>();
+        for (Ray ray : rays) {
+            colors.add(tracer.traceRay(ray));
+        }
+        imageWriter.writePixel(col, row, Color.avgColor(colors));
+    }
+
 
     /**
      * the method check if imageWriter is not equal to null and then
@@ -317,6 +431,46 @@ public class Camera {
 
     public Camera setRayTracer(RayTracerBase rayTracerBase) {
         this.rayTracerBase = rayTracerBase;
+        return this;
+    }
+
+    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
+        this.rayTracerBase = rayTracerBase;
+        return this;
+    }
+
+    public Camera setNumOfRaysInPixel(int numOfRaysInPixel) {
+        this.numOfRaysInPixel = numOfRaysInPixel;
+        return this;
+    }
+
+    public Camera setAntiAliasing(boolean antiAliasing) {
+        AntiAliasing = antiAliasing;
+        return this;
+    }
+
+    public Camera setApertureSize(double apertureSize) {
+        ApertureSize = apertureSize;
+        return this;
+    }
+
+    public Camera setFocalDistance(double focalDistance) {
+        FocalDistance = focalDistance;
+        return this;
+    }
+
+    public Camera setNumOfRaysInAperture(int numOfRaysInAperture) {
+        this.numOfRaysInAperture = numOfRaysInAperture;
+        return this;
+    }
+
+    public Camera setDepthOfField(boolean depthOfField) {
+        this.DepthOfField = depthOfField;
+        return this;
+    }
+
+    public Camera setTracer(RayTracerBase tracer) {
+        this.tracer = tracer;
         return this;
     }
 }
