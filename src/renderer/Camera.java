@@ -180,6 +180,8 @@ public class Camera {
      *
      * @param nX x axis
      * @param nY y axis
+     * @param  j x index
+     * @param  i y index
      * @return color
      */
     private void CastRay(int nX, int nY,int i ,int j) {
@@ -239,7 +241,13 @@ public class Camera {
 
         for (int i = 0; i < Ny; i++) {
             for (int j = 0; j < Nx; j++) {
-                CastRay(Nx,Ny,i,j);
+                // if it is not, proceed as usual (cast a single ray)
+                if (!this.is_DepthOfField() && !this.is_AntiAliasing()) {
+                    CastRay(Nx,Ny,i,j);
+                }
+                // if it is on, cast a beam, instead of a single ray
+                else castBeam(Nx, Ny, i, j);
+
 
             }
         }
@@ -473,6 +481,26 @@ public class Camera {
         this.tracer = tracer;
         return this;
     }
+
+    /**
+     * get if DOF is activated in camera
+     *
+     * @return whether the DOF effect is activated or not
+     */
+    public boolean is_DepthOfField() {
+        return DepthOfField;
+    }
+
+    /**
+     * get if AA is activated in camera
+     *
+     * @return whether the AA effect is activated or not
+     */
+    public boolean is_AntiAliasing() {
+        return AntiAliasing;
+    }
+
+
 }
 
 
