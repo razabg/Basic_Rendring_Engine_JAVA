@@ -22,10 +22,17 @@ public class MiniProject {
 
     @Test
         public void BonusImage() {
-            Camera camera = new Camera.CameraBuilder(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
-                    .setVPSize(200, 200).setVPDistance(1000).build();
+            Camera camera = new Camera.CameraBuilder(new Point(0, 0, 500), new Vector(1, 0, -1), new Vector(0, 1, 0))
+                    .setVPSize(300, 300).
+                    setVPDistance(1200).
+                    build();
 
-            camera.setDepthOfField(true).setFocalDistance(140).setApertureSize(100).setNumOfRaysInAperture(81);
+            camera.setDepthOfField(true)
+                    .setAntiAliasing(true)
+                    .setFocalDistance(180)
+                    .setApertureSize(150)
+                    .setNumOfRaysInAperture(81)
+                    .setNumOfRaysInPixel(16);
 
 
             scene.setAmbientLight(new AmbientLight(new Color(BLACK), new Double3(0.3)));
@@ -68,7 +75,7 @@ public class MiniProject {
 
             camera.setImageWriter(imageWriter) //
                     .setRayTracer(new RayTracerBasic(scene)).renderImage(); //
-            camera.writeToImage();; //
+            camera.writeToImage();//
         }
     }
 

@@ -20,8 +20,8 @@ public class Camera {
 
     private double _distance;//object's actual distance from the camera center
 
-    private int _width;//actual width
-    private int _height;//actual height
+    private double _width;//actual width
+    private double _height;//actual height
 
     private ImageWriter imageWriter; //the object create the image
     private RayTracerBase rayTracerBase;//the object used to trace rays for the rendering engine
@@ -31,7 +31,7 @@ public class Camera {
     /**
      * number of rays in a single pixel for active super sampling
      */
-    private int numOfRaysInPixel;
+    private int numOfRaysInPixel = 0;
     /**
      * boolean value to determine anti aliasing
      */
@@ -66,7 +66,7 @@ public class Camera {
     /**
      * the object help in anti-aliasing renderer
      */
-    private RayTracerBase tracer;
+    private RayTracerBase RayTracerBase;
 
 //todo add to  camera builder
     /**
@@ -206,7 +206,7 @@ public class Camera {
 
         List<Color> colors = new LinkedList<>();
         for (Ray ray : rays) {
-            colors.add(tracer.traceRay(ray));
+            colors.add(rayTracerBase.traceRay(ray));
         }
         imageWriter.writePixel(col, row, Color.avgColor(colors));
     }
@@ -389,11 +389,11 @@ public class Camera {
         return _distance;
     }
 
-    public int get_width() {
+    public double get_width() {
         return _width;
     }
 
-    public int get_height() {
+    public double get_height() {
         return _height;
     }
 
@@ -477,10 +477,7 @@ public class Camera {
         return this;
     }
 
-    public Camera setTracer(RayTracerBase tracer) {
-        this.tracer = tracer;
-        return this;
-    }
+
 
     /**
      * get if DOF is activated in camera
