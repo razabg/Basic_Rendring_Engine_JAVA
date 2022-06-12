@@ -20,6 +20,47 @@ public class MiniProject {
 
         Scene scene = new Scene.SceneBuilder("New Picture").setLights( temp ).build();
 
+
+
+    @Test
+    public void EXP() {
+
+        Camera camera = new Camera.CameraBuilder(new Point(100, 200, 2000), new Vector(0, 0, -1)
+                , new Vector(0, 1, 0))
+                .setVPSize(600, 600).
+                setVPDistance(1000).
+                build();
+
+//        camera.setDepthOfField(true)
+//                .setAntiAliasing(true)
+//                .setFocalDistance(180)
+//                .setApertureSize(150)
+//                .setNumOfRaysInAperture(81)
+//                .setNumOfRaysInPixel(16);
+
+        scene.geometries.add(
+                new Plane(new Point(20, -250,0), new Vector(0, 1, 0)).setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(20)).setEmission(new Color(gray)),
+//                new Sphere(new Point(0,-50,0),50).setEmission(new Color(red)).setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(50).setKt(0.0001)),
+                new Cylinder(new Ray(new Point(150,-250,0),new Vector(0,1,0)),10,100).setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(50).setKt(0.0001)),
+                new Cylinder(new Ray(new Point(-150,-250,0),new Vector(0,1,0)),10,100).setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(50).setKt(0.0001)),
+                new Cylinder(new Ray(new Point(100,-190,0),new Vector(0,1,0)),10,100).setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(50).setKt(0.0001)),
+                new Cylinder(new Ray(new Point(-200,-190,0),new Vector(0,1,0)),10,100).setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(50).setKt(0.0001)),
+                new Cylinder(new Ray(new Point(-30,-100,0),new Vector(0,1,0)),350,10).setEmission(new Color(green)).setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(100).setKt(0.6)));
+
+
+        scene.lights.add(new SpotLight(new Color(800,500,0),new Point(-150,250,50) , new Vector(0, -1, 0)).set_kL(0.001).set_kQ(0.0001));
+        scene.lights.add(new SpotLight(new Color(800,500,0),new Point(-30,-100,0) , new Vector(0, -1, 0)).set_kL(0.001).set_kQ(0.0001));
+
+
+
+        ImageWriter imageWriter = new ImageWriter("EXP", 600, 600);
+
+        camera.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene)).renderImage(); //
+        camera.writeToImage();//
+
+    }
+
     @Test
         public void BonusImage() {
             Camera camera = new Camera.CameraBuilder(new Point(0, 0, 2000), new Vector(0, 0, -1)
