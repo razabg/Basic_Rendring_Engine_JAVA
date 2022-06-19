@@ -1,8 +1,7 @@
 
 
 import geometries.*;
-import lighting.AmbientLight;
-import lighting.LightSource;
+import lighting.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
 import renderer.*;
@@ -26,13 +25,16 @@ public class LightsTests {
             .setVPSize(150, 150) //
             .setVPDistance(1000)
             .build();
-    private Camera camera2 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-            .setViewPlaneSize(200, 200) //
-            .setDistance(1000);
-    private Camera camera3 = new Camera(new Point(0, 50, 160),
+    private Camera camera2 = new Camera.CameraBuilder(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+            .setVPSize(200,200) //
+            .setVPDistance(1000)
+            .build();
+
+    private Camera camera3 = new Camera.CameraBuilder(new Point(0, 50, 160),
             new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-            .setViewPlaneSize(200, 200) //
-            .setDistance(110);
+            .setVPSize(200, 200) //
+            .setVPDistance(110)
+            .build();
 
 
     private static Geometry triangle1 = new Triangle( //
@@ -50,124 +52,16 @@ public class LightsTests {
 
 
 
-    private static Geometry planeA = new Plane(new Point3D(500,0,0),
-            new Vector(new Point3D(1,0,0)));
-    private static Geometry planeB = new Plane(new Point3D(-500,0,0),
-            new Vector(new Point3D(1,0,0)));
-    private static Geometry planeC = new Plane(new Point3D(0,0,-20),
-            new Vector(new Point3D(0,0,1)));
+    private static Geometry planeA = new Plane(new Point(500,0,0),
+            new Vector(new Double3(1,0,0)));
+    private static Geometry planeB = new Plane(new Point(-500,0,0),
+            new Vector(new Double3(1,0,0)));
+    private static Geometry planeC = new Plane(new Point(0,0,-20),
+            new Vector(new Double3(0,0,1)));
 
 
 
-    /**
-     * Produce a picture of a sphere lighted by a directional light
-     */
-    @Test
-    public void sphereDirectional() {
-        scene1._geometries.add(sphere);
-        scene1._lights.add(new DirectionalLight(new Color(500, 300, 0), new Vector(1, 1, -1)));
 
-        ImageWriter imageWriter = new ImageWriter("lightSphereDirectional", 500, 500);
-        Render render = new Render()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera1) //
-                .setRayTracer(new RayTracerBasic(scene1));
-        render.renderImage();
-        render.writeToImage();
-    }
-
-    /**
-     * Produce a picture of a sphere lighted by a point light
-     */
-    @Test
-    public void spherePoint() {
-        scene1._geometries.add(sphere);
-        scene1._lights.add(new PointLight(new Color(500, 300, 0), new Point3D(-50, -50, 50))
-                .setkL(0.00001).setkQ(0.000001));
-
-        ImageWriter imageWriter = new ImageWriter("lightSpherePoint", 500, 500);
-        Render render = new Render()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera1.setMin_MULTI_SAMPLING_SAMPLES(17)) //
-                .setRayTracer(new RayTracerBasic(scene1));
-        render.renderImage();
-        render.writeToImage();
-    }
-
-    /**
-     * Produce a picture of a sphere lighted by a spot light
-     */
-    @Test
-    public void sphereSpot() {
-        scene1._geometries.add(sphere);
-        scene1._lights.add(new SpotLight(new Vector(1, 1, -2), new Color(500, 300, 0), new Point3D(-50, -50, 50))
-                .setkL(0.00001).setkQ(0.00000001));
-
-        ImageWriter imageWriter = new ImageWriter("lightSphereSpot", 500, 500);
-        Render render = new Render()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera1) //
-                .setRayTracer(new RayTracerBasic(scene1));
-        render.renderImage();
-        render.writeToImage();
-    }
-
-    /**
-     * Produce a picture of a two triangles lighted by a directional light
-     */
-    @Test
-    public void trianglesDirectional() {
-        scene2._geometries.add(triangle1.setMaterial(new Material().setkD(0.8).setkS(0.2).setnShininess(300)), //
-                triangle2.setMaterial(new Material().setkD(0.8).setkS(0.2).setnShininess(300)));
-        scene2._lights.add(new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, -1)));
-
-        ImageWriter imageWriter = new ImageWriter("lightTrianglesDirectional", 500, 500);
-        Render render = new Render()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera2) //
-                .setRayTracer(new RayTracerBasic(scene2));
-        render.renderImage();
-        render.writeToImage();
-    }
-
-    /**
-     * Produce a picture of a two triangles lighted by a point light
-     */
-    @Test
-    public void trianglesPoint() {
-        scene2._geometries.add(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)), //
-                triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)));
-        scene2._lights.add(new PointLight(new Color(500, 250, 250), new Point3D(10, -10, -130)) //
-                .setkL(0.0005).setkQ(0.0005));
-
-        ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
-        Render render = new Render()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera2) //
-                .setRayTracer(new RayTracerBasic(scene2));
-        render.renderImage();
-        render.writeToImage();
-    }
-
-
-    /**
-     * Produce a picture of a two triangles lighted by a spot light
-     */
-    @Test
-    public void trianglesSpot() {
-        scene2._geometries.add(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)),
-                triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)));
-        scene2._lights.add(new SpotLight(new Vector(-2, -2, -1), new Color(500, 250, 250), new Point3D(10, -10, -130))
-                .setkL(0.0001).setkQ(0.000005));
-
-        ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
-        Render render = new Render()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera2) //
-                .setRayTracer(new RayTracerBasic(scene2));
-        render.renderImage();
-        render.writeToImage();
-    }
 
     /**
      * Produce a picture of three spheres and two two planes stand to the right and left of the sphres,
