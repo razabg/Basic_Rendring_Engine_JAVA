@@ -42,10 +42,12 @@ public class ReflectionRefractionTests {
 						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setKt(0.3)),
 				new Sphere(new Point(0, 0, -50), 25d).setEmission(new Color(RED)) //
 						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100)));
+//		scene.lights.add( //
+//				new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
+//						.set_kL(0.0004).set_kQ(0.0000006));
 		scene.lights.add( //
-				new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
+				new SpotLight(new Color(1000, 600, 0), new Point(-120, -110, 500), new Vector(-1, -1, -2)) //
 						.set_kL(0.0004).set_kQ(0.0000006));
-
 		camera.setImageWriter(new ImageWriter("refractionTwoSpheres", 500, 500)) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage(); //
