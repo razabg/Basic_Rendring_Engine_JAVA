@@ -34,6 +34,17 @@ public class Geometries extends Intersectable {
 
 
     /**
+     * a method that receive shapes and adds to this list.
+     *
+     * @param geometries - shapes to be added to this instance
+     */
+    public void addAll(List<Geometry> geometries) {
+        _intersectables.addAll(geometries);
+    }
+
+
+
+    /**
      * constructor of class, creates the list and for now it is empty.
      * implements as a linked list that allows to delete members if necessary.
      */

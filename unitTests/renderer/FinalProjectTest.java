@@ -11,6 +11,7 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -95,10 +96,10 @@ public class FinalProjectTest {
 
 
         Geometry floor= new Plane(new Point(0,0,0),new Vector(0,1,0)) // floor plane
-                .setEmission(new Color(gray))
+                .setEmission(new Color(lightGray))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
 
-        Geometry roof= new Plane(new Point(0,80,0),new Vector(0,1,0))  //roof plane
+        Geometry roof= new Plane(new Point(0,1000,0),new Vector(0,1,0))  //roof plane
                 .setEmission(new Color(gray).scale(0.3))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
 
@@ -243,7 +244,7 @@ public class FinalProjectTest {
                 .setEmission(new Color(java.awt.Color.RED).scale(0.1))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
 //
-        //decor outer
+        //decor inner
         Geometry triangle1 = new Triangle((new Point(-56,25,71)),new Point(-53,21,69), //the two pyramids
                 new Point(-53,21,73))
                 .setEmission(new Color(java.awt.Color.pink).scale(0.1))
@@ -260,7 +261,7 @@ public class FinalProjectTest {
                 new Point(-53,21,69))
                 .setEmission(new Color(java.awt.Color.pink).scale(0.1))
                 .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100));
-        //decor inner
+        //decor outter
         Geometry triangle5 = new Triangle((new Point(-56,30,71)),new Point(-50,21,66),
                 new Point(-50,21,76))
                 .setEmission(new Color(java.awt.Color.pink).scale(0.1))
@@ -289,20 +290,120 @@ public class FinalProjectTest {
 //                .setMaterial(new Material().setkD(0.5).setkS(0.9).setnShininess(100));
 
 
-        scene1.geometries.add(door1,middle1,middle2,door2,door3,door4,door5,middle3,middle5,floor,handle1,handle2,handle3,handle4
+//        //scene1.Back(Color.BLUE.add(Color.GREEN.reduce(2)).reduce(5));
+//        scene1.setAmbientLight(new AmbientLight(Color.WHITE.reduce(5),new Double3 (0.1)));
+//
+//        Color naturalGreen = new Color( 124,176,109);
+////        Color.GREEN.add(Color.RED.reduce(10)).reduce(4)
+//        //Color naturalGreen2 = naturalGreen.add(Color.GREEN.reduce(5));
+//
+//        //region Tree1 points
+//        // create all relevant points
+//        double xMoveTree = 0;
+//        double yMoveTree = -5;
+//        double zMoveTree = 0;
+//
+//        Point a = new Point(-56 + xMoveTree, 25 + yMoveTree, 71 + zMoveTree);
+//       Point b = new Point(-53 + xMoveTree, 21 + yMoveTree, 69 + zMoveTree);
+//        Point c = new Point(14 + xMoveTree, 1 + yMoveTree, 1 + zMoveTree);
+//       Point d = new Point(1 + xMoveTree, 14 + yMoveTree, 1 + zMoveTree);
+//        Point f = new Point(-12 + xMoveTree, 1 + yMoveTree, 10 + zMoveTree);
+//        Point g = new Point(1 + xMoveTree, -12 + yMoveTree, 10 + zMoveTree);
+//        Point h = new Point(12 + xMoveTree, 1 + yMoveTree, 10 + zMoveTree);
+//        Point i = new Point(1 + xMoveTree, 12 + yMoveTree, 10 + zMoveTree);
+//        Point j = new Point(1 + xMoveTree, 1 + yMoveTree, 30 + zMoveTree);
+//       Point k = new Point(-10 + xMoveTree, 1 + yMoveTree, 20 + zMoveTree);
+//        Point l = new Point(1 + xMoveTree, -10 + yMoveTree, 20 + zMoveTree);
+//        Point m = new Point(10 + xMoveTree, 1 + yMoveTree, 20 + zMoveTree);
+//        Point n = new Point(1 + xMoveTree, 10 + yMoveTree, 20 + zMoveTree);
+//        Point o = new Point(1 + xMoveTree, 1 + yMoveTree, 40 + zMoveTree);
+//       Point p = new Point(-53 + xMoveTree, 21 + yMoveTree, 73 + zMoveTree);
+//        //endregion
+//
+//       //region Tree1 polygons
+//      //  Polygon BottomPyramidBottom = new Polygon(a, b, c, d);
+//        // tree's triangles
+//        Triangle BottomPyramid1 = new Triangle(a, b, p);
+//        Triangle BottomPyramid2 = new Triangle(b, c, p);
+//        Triangle BottomPyramid3 = new Triangle(c, d, p);
+//       Triangle BottomPyramid4 = new Triangle(a, d, p);
+//
+//        Triangle MiddlePyramid1 = new Triangle(f, g, j);
+//        Triangle MiddlePyramid2 = new Triangle(g, h, j);
+//        Triangle MiddlePyramid3 = new Triangle(h, i, j);
+//       Triangle MiddlePyramid4 = new Triangle(i, f, j);
+//
+//        Triangle TopPyramid1 = new Triangle(k, l, o);
+//        Triangle TopPyramid2 = new Triangle(l, m, o);
+//       Triangle TopPyramid3 = new Triangle(m, n, o);
+//       Triangle TopPyramid4 = new Triangle(n, k, o);
+//        //endregion
+//
+//        //region color Tree1 polygons and add to scene's geometries
+//       // add all of them to a list to apply settings (e.g. color) to all of them easily
+//        List<Geometry> greenTriangles = Arrays.asList(
+//               // BottomPyramidBottom,
+//                BottomPyramid1,
+//                BottomPyramid2,
+//                BottomPyramid3,
+//                BottomPyramid4,
+//                MiddlePyramid1,
+//                MiddlePyramid2,
+//               MiddlePyramid3,
+//               MiddlePyramid4,
+//                TopPyramid1,
+//                TopPyramid2,
+//                TopPyramid3,
+//                TopPyramid4
+//       );
+//
+//        for (Geometry geo : greenTriangles) {
+//            geo.setEmission(naturalGreen)
+//                    .setMaterial(new Material()
+//                            .setkD(0.01)
+//                           .setkS(0.0001)
+//                           .setnShininess(2)
+//                            .setKr(0.01));
+//        }
+//      scene1.geometries.addAll(greenTriangles);
+//      //endregion
+
+        Color naturalGreen = new Color( 124,176,109);
+        Geometry triangleHeadOfTree1 = new Triangle((new Point(19,30,71)),new Point(25,21,66),
+                new Point(25,21,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleHeadOfTree2 = new Triangle((new Point(19,30,71)),new Point(25,21,76),
+                new Point(13,21,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleHeadOfTree3 = new Triangle((new Point(19,30,71)),new Point(13,21,76),
+                new Point(13,21,66))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleHeadOfTree4 = new Triangle((new Point(19,30,71)),new Point(13,21,66),
+                new Point(25,21,66))
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0)).setEmission(naturalGreen);
+
+
+
+
+
+
+        scene1.geometries.add( door1,middle1,middle2,door2,door3,door4,door5,middle3,middle5,floor,handle1,handle2,handle3,handle4
                ,foot11,foot12,foot13,foot14,foot21,foot22,foot23,foot24,foot31,foot32,foot33,foot34,foot41,foot42,foot43,foot44,
-                plateUp,plateDown,plateSide1,plateSide2,plateSide3,plateSide4,middle4,door6,triangle1,triangle2,triangle3,triangle4,
+                plateUp,plateDown,plateSide1,plateSide2,plateSide3,plateSide4,middle4,door6 ,triangle1,triangle2,triangle3,triangle4,triangleHeadOfTree1,triangleHeadOfTree2,triangleHeadOfTree3,triangleHeadOfTree4,
                 triangle5,triangle6,triangle7,triangle8);
 
 
 
 
-        scene1.lights.add(new PointLight(
-                new Color(java.awt.Color.YELLOW)
-                        .add(new Color(java.awt.Color.YELLOW)).scale(0.2), new Point(0, 50, 40)));
+//        scene1.lights.add(new PointLight(
+//                new Color(java.awt.Color.YELLOW)
+//                        .add(new Color(java.awt.Color.YELLOW)).scale(0.2), new Point(0, 50, 40)));
 
         scene1.lights.add(new SpotLight(new Color(java.awt.Color.orange), new Point(-56, 50, 71),new Vector(0,-1,0)));
-        scene1.lights.add(new SpotLight(new Color(java.awt.Color.CYAN).scale(0.8), new Point(10, 55, 75),new Vector(1.5,-1,0)));
+      //  scene1.lights.add(new SpotLight(new Color(java.awt.Color.CYAN).scale(0.8), new Point(10, 55, 75),new Vector(1.5,-1,0)));
 
 
 
@@ -310,7 +411,7 @@ public class FinalProjectTest {
                 new Vector(0, 0, -1), new Vector(0, 1, 0)) //
                 .setVPSize(200, 200) //
                 .setVPDistance(110)
-                .setImageWriter( new ImageWriter("test1001", 1000, 1000))
+                .setImageWriter( new ImageWriter("test1002", 1000, 1000))
                 .setRayTracer(new RayTracerBasic(scene1))
                 .build();
         camera3.renderImage();
