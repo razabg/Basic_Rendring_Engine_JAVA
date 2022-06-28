@@ -95,30 +95,31 @@ public class FinalProjectTest {
 
 
         Geometry floor= new Plane(new Point(0,0,0),new Vector(0,1,0)) // floor plane
-                .setEmission(new Color(pink))
-                .setMaterial(new Material().setkD(0.4).setkS(0.05).setnShininess(100));
+                .setEmission(new Color(gray))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
 
         Geometry roof= new Plane(new Point(0,80,0),new Vector(0,1,0))  //roof plane
-                .setEmission(new Color(java.awt.Color.WHITE).scale(0.3))
-                .setMaterial(new Material().setkD(0.7));
+                .setEmission(new Color(gray).scale(0.3))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
 
 
         Geometry wallRight= new Plane(new Point(35,0,0),new Vector(1,0,0)) // right wall plane
-                .setEmission(new Color(java.awt.Color.LIGHT_GRAY))
-                .setMaterial(new Material().setkD(0.5));
+                .setEmission(new Color(gray))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
 
 
         Geometry wallLeft= new Plane(new Point(-100,0,0),new Vector(1,0,0)) //left wall plane
-                .setEmission(new Color(java.awt.Color.LIGHT_GRAY))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
+                .setEmission(new Color(gray))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
 
         Geometry wallBehind= new Plane(new Point(0,0,200),new Vector(0,0,1))  // wall behind the camera
-                .setEmission(new Color(java.awt.Color.LIGHT_GRAY))
-                .setMaterial(new Material().setkD(0.5));
+                .setEmission(new Color(gray))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
 
         Geometry wallFront= new Plane(new Point(0,0,-20),new Vector(0,0,1)) //wall in front of us
-                .setEmission(new Color(java.awt.Color.LIGHT_GRAY))
-                .setMaterial(new Material().setkD(0.5));
+                .setEmission(new Color(gray))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
+
 
 
 
@@ -277,31 +278,33 @@ public class FinalProjectTest {
                 .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0.8));
 
 //wallSpheres
-        Geometry sphere1 = new Sphere(new Point(35, 30, 50), 4)
-                .setEmission(new Color(java.awt.Color.RED).scale(0.5))
-                .setMaterial(new Material().setkD(0.5).setkS(0.9).setnShininess(100));
-        Geometry sphere2 = new Sphere(new Point(35, 30, 75), 4)
-                .setEmission(new Color(java.awt.Color.ORANGE).scale(0.5))
-                .setMaterial(new Material().setkD(0.5).setkS(0.9).setnShininess(100));
-        Geometry sphere3 = new Sphere(new Point(35, 30, 100), 4)
-                .setEmission(new Color(java.awt.Color.GREEN).scale(0.3))
-                .setMaterial(new Material().setkD(0.5).setkS(0.9).setnShininess(100));
+//        Geometry sphere1 = new Sphere(new Point(35, 30, 50), 4)
+//                .setEmission(new Color(java.awt.Color.RED).scale(0.5))
+//                .setMaterial(new Material().setkD(0.5).setkS(0.9).setnShininess(100));
+//        Geometry sphere2 = new Sphere(new Point(35, 30, 75), 4)
+//                .setEmission(new Color(java.awt.Color.ORANGE).scale(0.5))
+//                .setMaterial(new Material().setkD(0.5).setkS(0.9).setnShininess(100));
+//        Geometry sphere3 = new Sphere(new Point(35, 30, 100), 4)
+//                .setEmission(new Color(java.awt.Color.GREEN).scale(0.3))
+//                .setMaterial(new Material().setkD(0.5).setkS(0.9).setnShininess(100));
 
 
-        scene1.geometries.add(door1,middle1,middle2,door2,door3,door4,door5,middle3,middle5,floor,wallBehind,handle1,handle2,handle3,handle4,roof
-                ,wallRight,wallLeft,foot11,foot12,foot13,foot14,foot21,foot22,foot23,foot24,foot31,foot32,foot33,foot34,foot41,foot42,foot43,foot44,
+        scene1.geometries.add(door1,middle1,middle2,door2,door3,door4,door5,middle3,middle5,floor,handle1,handle2,handle3,handle4
+               ,foot11,foot12,foot13,foot14,foot21,foot22,foot23,foot24,foot31,foot32,foot33,foot34,foot41,foot42,foot43,foot44,
                 plateUp,plateDown,plateSide1,plateSide2,plateSide3,plateSide4,middle4,door6,triangle1,triangle2,triangle3,triangle4,
-                triangle5,triangle6,triangle7,triangle8,wallFront,sphere1,sphere2,sphere3);
+                triangle5,triangle6,triangle7,triangle8);
 
 
 
-        scene1.lights.add(new PointLight(new Color(java.awt.Color.YELLOW).add(new Color(java.awt.Color.YELLOW)).scale(0.2), new Point(0, 50, 40)));
-        scene1.lights.add(new SpotLight(new Color(java.awt.Color.orange),new Point(-56, 50, 71),new Vector(0,-1,0)));
-        scene1.lights.add(new SpotLight(new Color(java.awt.Color.CYAN).scale(0.8),new Point(10, 55, 75),new Vector(1.5,-1,0)));
+
+        scene1.lights.add(new PointLight(
+                new Color(java.awt.Color.YELLOW)
+                        .add(new Color(java.awt.Color.YELLOW)).scale(0.2), new Point(0, 50, 40)));
+
+        scene1.lights.add(new SpotLight(new Color(java.awt.Color.orange), new Point(-56, 50, 71),new Vector(0,-1,0)));
+        scene1.lights.add(new SpotLight(new Color(java.awt.Color.CYAN).scale(0.8), new Point(10, 55, 75),new Vector(1.5,-1,0)));
 
 
-
-        scene1.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)));
 
         Camera camera3 = new Camera.CameraBuilder(new Point(0, 50, 160),
                 new Vector(0, 0, -1), new Vector(0, 1, 0)) //
