@@ -22,6 +22,7 @@ public class FinalProjectTest {
     public Scene scene1 = new Scene.SceneBuilder("Test scene").setLights(LightSourceInit).build();
 
 
+
     /**
      * y = positive up,negative down
      * x = positive right,negative left
@@ -96,32 +97,8 @@ public class FinalProjectTest {
 
 
         Geometry floor= new Plane(new Point(0,0,0),new Vector(0,1,0)) // floor plane
-                .setEmission(new Color(lightGray))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
-
-        Geometry roof= new Plane(new Point(0,1000,0),new Vector(0,1,0))  //roof plane
-                .setEmission(new Color(gray).scale(0.3))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
-
-
-        Geometry wallRight= new Plane(new Point(35,0,0),new Vector(1,0,0)) // right wall plane
-                .setEmission(new Color(gray))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
-
-
-        Geometry wallLeft= new Plane(new Point(-100,0,0),new Vector(1,0,0)) //left wall plane
-                .setEmission(new Color(gray))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
-
-        Geometry wallBehind= new Plane(new Point(0,0,200),new Vector(0,0,1))  // wall behind the camera
-                .setEmission(new Color(gray))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300));
-
-        Geometry wallFront= new Plane(new Point(0,0,-20),new Vector(0,0,1)) //wall in front of us
-                .setEmission(new Color(gray))
-                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
-
-
+                .setEmission( new Color(91,87,61))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300).setKr(0.4));
 
 
 
@@ -368,32 +345,149 @@ public class FinalProjectTest {
 //      scene1.geometries.addAll(greenTriangles);
 //      //endregion
 
+        //region
         Color naturalGreen = new Color( 124,176,109);
-        Geometry triangleHeadOfTree1 = new Triangle((new Point(19,30,71)),new Point(25,21,66),
+        Geometry triangleHeadOfTree1 = new Triangle((new Point(19,50,71)),new Point(25,41,66),
+                new Point(25,41,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleHeadOfTree2 = new Triangle((new Point(19,50,71)),new Point(25,41,76),
+                new Point(13,41,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleHeadOfTree3 = new Triangle((new Point(19,50,71)),new Point(13,41,76),
+                new Point(13,41,66))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleHeadOfTree4 = new Triangle((new Point(19,50,71)),new Point(13,41,66),
+                new Point(25,41,66))
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0)).setEmission(naturalGreen);
+
+
+
+        Geometry triangleSecondOfTree1 = new Triangle((new Point(19,45,71)),new Point(25,36,66),
+                new Point(25,36,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleSecondOfTree2 = new Triangle((new Point(19,45,71)),new Point(25,36,76),
+                new Point(13,36,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleSecondOfTree3 = new Triangle((new Point(19,45,71)),new Point(13,36,76),
+                new Point(13,36,66))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleSecondOfTree4 = new Triangle((new Point(19,45,71)),new Point(13,36,66),
+                new Point(25,36,66))
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0)).setEmission(naturalGreen);
+
+
+        Geometry triangleThirdOfTree1 = new Triangle((new Point(19,40,71)),new Point(25,31,66),
+                new Point(25,31,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleThirdOfTree2 = new Triangle((new Point(19,40,71)),new Point(25,31,76),
+                new Point(13,31,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleThirdOfTree3 = new Triangle((new Point(19,40,71)),new Point(13,31,76),
+                new Point(13,31,66))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleThirdOfTree4 = new Triangle((new Point(19,40,71)),new Point(13,31,66),
+                new Point(25,31,66))
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0)).setEmission(naturalGreen);
+
+        Geometry triangleFourthOfTree1 = new Triangle((new Point(19,35,71)),new Point(25,26,66),
+                new Point(25,26,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleFourthOfTree2 = new Triangle((new Point(19,35,71)),new Point(25,26,76),
+                new Point(13,26,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleFourthOfTree3 = new Triangle((new Point(19,35,71)),new Point(13,26,76),
+                new Point(13,26,66))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleFourthOfTree4 = new Triangle((new Point(19,35,71)),new Point(13,26,66),
+                new Point(25,26,66))
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0)).setEmission(naturalGreen);
+
+
+        Geometry triangleFifthOfTree1 = new Triangle((new Point(19,30,71)),new Point(25,21,66),
                 new Point(25,21,76))
                 .setEmission(naturalGreen)
                 .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
-        Geometry triangleHeadOfTree2 = new Triangle((new Point(19,30,71)),new Point(25,21,76),
+        Geometry triangleFifthOfTree2 = new Triangle((new Point(19,30,71)),new Point(25,21,76),
                 new Point(13,21,76))
                 .setEmission(naturalGreen)
                 .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
-        Geometry triangleHeadOfTree3 = new Triangle((new Point(19,30,71)),new Point(13,21,76),
+        Geometry triangleFifthOfTree3 = new Triangle((new Point(19,30,71)),new Point(13,21,76),
                 new Point(13,21,66))
                 .setEmission(naturalGreen)
                 .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
-        Geometry triangleHeadOfTree4 = new Triangle((new Point(19,30,71)),new Point(13,21,66),
+        Geometry triangleFifthOfTree4 = new Triangle((new Point(19,30,71)),new Point(13,21,66),
                 new Point(25,21,66))
                 .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0)).setEmission(naturalGreen);
 
 
 
+        Geometry triangleSixthOfTree1 = new Triangle((new Point(19,25,71)),new Point(25,16,66),
+                new Point(25,16,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleSixthOfTree2 = new Triangle((new Point(19,25,71)),new Point(25,16,76),
+                new Point(13,16,76))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleSixthOfTree3 = new Triangle((new Point(19,25,71)),new Point(13,16,76),
+                new Point(13,16,66))
+                .setEmission(naturalGreen)
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0));
+        Geometry triangleSixthOfTree4 = new Triangle((new Point(19,25,71)),new Point(13,16,66),
+                new Point(25,16,66))
+                .setMaterial(new Material().setkD(0.3).setkS(0.7).setnShininess(100).setKt(0)).setEmission(naturalGreen);
 
 
+
+        Geometry Stem1 = new Polygon(new Point(20,0,70),new Point(20,0,72),
+                new Point(18,15,72),new Point(18,15,70))
+                .setEmission(new Color(java.awt.Color.RED).scale(0.1))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
+        Geometry Stem2 = new Polygon(new Point(20,0,72),new Point(18,0,72),
+                new Point(18,15,72),new Point(20,15,72))
+                .setEmission(new Color(java.awt.Color.RED).scale(0.1))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
+        Geometry Stem3 = new Polygon(new Point(18,0,70),new Point(18,0,72),
+                new Point(18,15,72),new Point(18,15,70))
+                .setEmission(new Color(java.awt.Color.RED).scale(0.1))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
+        Geometry Stem4 = new Polygon(new Point(20,0,70),new Point(18,0,70),
+                new Point(18,15,70),new Point(20,15,70))
+                .setEmission(new Color(java.awt.Color.RED).scale(0.1))
+                .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
+
+
+       Geometry Moon = new Sphere(new Point(2, 110, 30), 10) //
+                .setEmission(new Color(241,229,145)) //
+                .setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(50).setKt(0.2).setKr(0.2));
+
+
+
+        scene1.setBackground(new Color(29,31,47));
 
         scene1.geometries.add( door1,middle1,middle2,door2,door3,door4,door5,middle3,middle5,floor,handle1,handle2,handle3,handle4
                ,foot11,foot12,foot13,foot14,foot21,foot22,foot23,foot24,foot31,foot32,foot33,foot34,foot41,foot42,foot43,foot44,
-                plateUp,plateDown,plateSide1,plateSide2,plateSide3,plateSide4,middle4,door6 ,triangle1,triangle2,triangle3,triangle4,triangleHeadOfTree1,triangleHeadOfTree2,triangleHeadOfTree3,triangleHeadOfTree4,
-                triangle5,triangle6,triangle7,triangle8);
+                plateUp,plateDown,plateSide1,plateSide2,plateSide3,plateSide4,middle4,door6 ,triangle1,triangle2,triangle3
+                ,triangle4,triangleHeadOfTree1,triangleHeadOfTree2,triangleHeadOfTree3,triangleHeadOfTree4,
+                triangleSecondOfTree1,triangleSecondOfTree2,triangleSecondOfTree3,triangleSecondOfTree4,
+                triangleThirdOfTree1,triangleThirdOfTree2,triangleThirdOfTree3,triangleThirdOfTree4,
+                triangleFourthOfTree1,triangleFourthOfTree2,triangleFourthOfTree3,triangleFourthOfTree4,
+                triangleFifthOfTree1,triangleFifthOfTree2,triangleFifthOfTree3,triangleFifthOfTree4,
+                triangleSixthOfTree1,triangleSixthOfTree2,triangleSixthOfTree3,triangleSixthOfTree4,
+                Stem1,Stem2,Stem3,Stem4,
+                triangle5,triangle6,triangle7,triangle8,Moon);
 
 
 

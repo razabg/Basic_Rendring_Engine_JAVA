@@ -88,4 +88,9 @@ public class Scene {
         this.ambientLight = ambientLight;
         return this;
     }
+
+    public Scene setBackground(Color background) {
+        this.background = background;
+        return this;
+    }
 }
