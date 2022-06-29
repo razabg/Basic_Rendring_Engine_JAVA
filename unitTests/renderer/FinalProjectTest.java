@@ -469,7 +469,7 @@ public class FinalProjectTest {
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
 
 
-       Geometry Moon = new Sphere(new Point(2, 110, 30), 10) //
+       Geometry Moon = new Sphere(new Point(-10, 135, -20), 15) //
                 .setEmission(new Color(241,229,145)) //
                 .setMaterial(new Material().setkD(0.8).setkS(0.8).setnShininess(50).setKt(0.2).setKr(0.2));
 
