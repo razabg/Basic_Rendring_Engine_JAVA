@@ -4,13 +4,27 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import java.util.MissingResourceException;
+import java.util.stream.IntStream;
+
 
 import java.util.*;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+
+
+
+
+
+
 public class Camera {
+
+    private static final String RESOURCE_ERROR = "Renderer resource not set";
+    private static final String IMAGE_WRITER_COMPONENT = "Image writer";
+    private static final String CAMERA_CLASS = "Camera";
+    private static final String RAY_TRACER_COMPONENT = "Ray tracer";
 
 
     private Point _p0; // camera location
@@ -63,10 +77,32 @@ public class Camera {
      */
     private boolean DepthOfField;
 
+
+    private int threadsCount = 0; // num of threads
+    private static final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
+    private double printInterval = 0l; // print interval in seconds
+
     /**
-     * the object help in anti-aliasing renderer
+     * Set multi-threading <br>
+     * - if the parameter is 0 - number of cores less 2 is taken
+     *
+     * @param threads number of threads
+     * @return the Render object itself
      */
-    private RayTracerBase RayTracerBase;
+    public Camera setMultithreading(int threads) {
+        if (threads < -2)
+            throw new IllegalArgumentException("Multithreading parameter must be 0 or higher");
+        if (threads >= -1)
+            this.threadsCount = threads;
+        else {
+            int cores = Runtime.getRuntime().availableProcessors() - SPARE_THREADS;
+            this.threadsCount = cores <= 2 ? 1 : cores;
+        }
+        return this;
+    }
+
+
+
 
 //todo add to  camera builder
     /**
@@ -218,39 +254,74 @@ public class Camera {
      */
     public void writeToImage() {
 
+
         if (imageWriter == null)
             throw new MissingResourceException("image writer cannot be null", "Camera", null);
-
+        checkResources();
         imageWriter.writeToImage();
     }
 
     /**
      * the method render the image with the given data
      */
-    public void renderImage() {
-
-        if (_p0 == null || _vTo == null || _vUp == null ||
-                _vRight == null || _distance == 0 || _width == 0 || _height == 0 ||
-                imageWriter == null || rayTracerBase == null) {
-            throw new MissingFormatArgumentException("fields cannot get null");
-        }
-      //  throw new UnsupportedOperationException(); //check where should be
-        int Nx =  imageWriter.getNx();
-        int Ny =  imageWriter.getNy();
+    public Camera renderImage() {
 
 
-        for (int i = 0; i < Ny; i++) {
-            for (int j = 0; j < Nx; j++) {
-                // if it is not, proceed as usual (cast a single ray)
-                if (!this.is_DepthOfField() && !this.is_AntiAliasing()) {
-                    CastRay(Nx,Ny,i,j);
+        checkResources();
+
+        final int nX = imageWriter.getNx();
+        final int nY = imageWriter.getNy();
+        Pixel.initialize(nY, nX, printInterval);
+        if (threadsCount == 0) {
+            for (int i = 0; i < nY; ++i)
+                for (int j = 0; j < nX; ++j) {
+                    if (!this.is_DepthOfField() && !this.is_AntiAliasing()) {
+                        CastRay(nX, nY, i, j);
+                        Pixel.pixelDone();
+                        Pixel.printPixel();
+                    }
+                    else {
+                        castBeam(nX, nY, i, j);
+                        Pixel.pixelDone();
+                        Pixel.printPixel();
+                    }
                 }
-                // if it is on, cast a beam, instead of a single ray
-                else castBeam(Nx, Ny, i, j);
+//            // if it is not, proceed as usual (cast a single ray)
+//            if (!this.is_DepthOfField() && !this.is_AntiAliasing()) {
+//                CastRay(Nx,Ny,i,j);
+//            }
+//            // if it is on, cast a beam, instead of a single ray
+//            else castBeam(Nx, Ny, i, j);
 
+        } else if (threadsCount == -1) {
+            IntStream.range(0, nY).parallel().forEach(i -> IntStream.range(0, nX).parallel().forEach(j -> {
+                if (!this.is_DepthOfField() && !this.is_AntiAliasing()) {
+                    CastRay(nX, nY, i, j);
+                    Pixel.pixelDone();
+                    Pixel.printPixel();
+                }
+                else {
+                    castBeam(nX, nY, i, j);
+                    Pixel.pixelDone();
+                    Pixel.printPixel();
+                }
+            }));
+        } else {
+            while (threadsCount-- > 0) {
+                new Thread(() -> {
+                    for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+                        if (!this.is_DepthOfField() && !this.is_AntiAliasing()) {
+                            CastRay(nX, nY, pixel.row,pixel.col);
+                        }
+                        else {
+                            castBeam(nX, nY, pixel.row,pixel.col);
+                        }
 
+                }).start();
             }
+            Pixel.waitToFinish();
         }
+        return this;
     }
 
 
@@ -264,7 +335,8 @@ public class Camera {
      */
     public void printGrid(int interval, Color color)  {
         if (imageWriter == null) {
-            throw new MissingResourceException("image writer cannot be null","Camera",null);
+            throw new MissingResourceException(RESOURCE_ERROR, CAMERA_CLASS, IMAGE_WRITER_COMPONENT);
+
         }
         else{
             for (int i = 0; i < imageWriter.getNx(); i++) {
@@ -496,6 +568,33 @@ public class Camera {
     public boolean is_AntiAliasing() {
         return AntiAliasing;
     }
+
+
+
+    /**
+     * Set debug printing interval. If it's zero - there won't be printing at all
+     *
+     * @param interval printing interval in seconds
+     * @return the Render object itself
+     */
+    public Camera setDebugPrint(double interval)
+    {
+        printInterval = interval;
+        return this;
+
+    }
+
+    /**
+     * Throws exception if there is a missing resource
+     */
+    private void checkResources() {
+        if (imageWriter == null)
+            throw new MissingResourceException(RESOURCE_ERROR, CAMERA_CLASS, IMAGE_WRITER_COMPONENT);
+        if (rayTracerBase == null)
+            throw new MissingResourceException(RESOURCE_ERROR, CAMERA_CLASS, RAY_TRACER_COMPONENT);
+    }
+
+
 
 
 }
