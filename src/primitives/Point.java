@@ -94,4 +94,7 @@ public class Point {
     }
 
 
+    public Double3 getXyz() {
+        return xyz;
+    }
 }
