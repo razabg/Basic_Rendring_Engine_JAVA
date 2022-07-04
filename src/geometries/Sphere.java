@@ -19,6 +19,7 @@ public class Sphere extends Geometry {
     public Sphere(Point center, double radius) {
         this._center = center;
         this._radius = radius;
+        setBoundingBox();
     }
 
     @Override
@@ -45,7 +46,7 @@ public class Sphere extends Geometry {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance)
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance,boolean bb)
      {
 
         Point P0 = ray.getP0();
@@ -90,6 +91,31 @@ public class Sphere extends Geometry {
             return List.of(new GeoPoint(this, P2));
         }
         return null;
+    }
+
+
+    /**
+     * method sets the values of the bounding volume for the intersectable sphere
+     */
+    @Override
+    public void setBoundingBox() {
+
+        super.setBoundingBox();
+
+        // get minimal & maximal x value for the containing box
+        double minX = _center.get_x() - _radius;
+        double maxX = _center.get_x() + _radius;
+
+        // get minimal & maximal y value for the containing box
+        double minY = _center.get_y() - _radius;
+        double maxY = _center.get_y() + _radius;
+
+        // get minimal & maximal z value for the containing box
+        double minZ = _center.get_z() - _radius;
+        double maxZ = _center.get_z() + _radius;
+
+        // set the minimum and maximum values in 3 axes for this bounding region of the component
+        boundingBox.setBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
     }
 
 

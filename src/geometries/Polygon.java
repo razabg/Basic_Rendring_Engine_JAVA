@@ -83,6 +83,7 @@ public class Polygon extends FlatGeometry  {
 		}
 		size = vertices.length;
 		//this.normal = n;
+		setBoundingBox();
 	}
 
 	@Override
@@ -98,7 +99,7 @@ public class Polygon extends FlatGeometry  {
 	 * @return the list of intersection points
 	 */
 	@Override
-	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistanc) {
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistanc ,boolean bb) {
 
 		List<GeoPoint> result = _plane.findGeoIntersections(ray);
 
@@ -141,6 +142,40 @@ public class Polygon extends FlatGeometry  {
 		return List.of(new GeoPoint(this,result.get(0).point));
 
 
+	}
+
+
+	/**
+	 * method sets the values of the bounding volume for the intersectable polygon
+	 */
+	@Override
+	public void setBoundingBox() {
+		super.setBoundingBox();
+
+		double minX = Double.POSITIVE_INFINITY;
+		double minY = Double.POSITIVE_INFINITY;
+		double minZ = Double.POSITIVE_INFINITY;
+
+		double maxX = Double.NEGATIVE_INFINITY;
+		double maxY = Double.NEGATIVE_INFINITY;
+		double maxZ = Double.NEGATIVE_INFINITY;
+
+		for (Point vertex : _vertices) {
+			// get minimal & maximal x value for the containing box
+			minX = Math.min(vertex.get_x(), minX);
+			maxX = Math.max(vertex.get_x(), maxX);
+
+			// get minimal & maximal y value for the containing box
+			minY = Math.min(vertex.get_y(), minY);
+			maxY = Math.max(vertex.get_y(), maxY);
+
+			// get minimal & maximal z value for the containing box
+			minZ = Math.min(vertex.get_z(), minZ);
+			maxZ = Math.max(vertex.get_z(), maxZ);
+		}
+
+		// set the minimum and maximum values in 3 axes for this bounding region of the component
+		boundingBox.setBoundingBox(minX, maxX, minY, maxY, minZ, maxZ);
 	}
 
 

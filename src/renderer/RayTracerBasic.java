@@ -53,6 +53,24 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
 
+
+    /**
+     * boolean value to determine use of bounding box improvement
+     */
+    private boolean _bb; // bounding box
+
+    /**
+     * setter for bounding box flag
+     *
+     * @param _bb to set the bb factor?
+     * @return this instance
+     */
+    public RayTracerBasic set_bb(boolean _bb) {
+        this._bb = _bb;
+        return this;
+    }
+
+
     /**
      * function to determine the color of a pixel
      *
@@ -194,9 +212,23 @@ public class RayTracerBasic extends RayTracerBase {
      * @return the closest point  to the ray's starting point
      */
     private GeoPoint findClosestIntersection(Ray ray) {
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
-        GeoPoint closestPoint =ray.findClosestGeoPoint(intersections);
-        return closestPoint;
+        List<GeoPoint> intersections;
+
+        if (!_bb) {
+           intersections  = scene.geometries.findGeoIntersections(ray);
+            GeoPoint closestPoint =ray.findClosestGeoPoint(intersections);
+            return closestPoint;
+        }
+        else{
+            intersections = scene.geometries.findIntersectBoundingRegion(ray);
+            if (intersections == null || intersections.size() == 0) {
+                return null;
+            } else {
+                return ray.findClosestGeoPoint(intersections);
+            }
+        }
+
+
     }
 
     /**
@@ -331,8 +363,13 @@ public class RayTracerBasic extends RayTracerBase {
 
 
             double maxDistacne = light.getDistance(point);
+            List<GeoPoint> Intersections;
+            if (!_bb)
+             Intersections = scene.geometries.findGeoIntersections(LightRay, maxDistacne);
+            else
+             Intersections = scene.geometries.findIntersectBoundingRegion(LightRay);
 
-            List<GeoPoint> Intersections = scene.geometries.findGeoIntersections(LightRay, maxDistacne);
+
             if (Intersections == null)
                 return Double3.ONE;
 

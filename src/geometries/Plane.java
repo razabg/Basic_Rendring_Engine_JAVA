@@ -88,7 +88,7 @@ public class Plane extends  FlatGeometry {
      * @return list of intersection points that were found
      */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance,boolean bb) {
         Point P0= ray.getP0();
         Vector v= ray.getDir();
         Vector n = _normal;

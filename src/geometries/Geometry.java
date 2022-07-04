@@ -11,7 +11,7 @@ import primitives.Vector;
  * objects with material and emission fields, and getNormal method
  * (and has the possibility to be intersected)
  */
-public abstract class Geometry extends Intersectable {
+public abstract class Geometry extends Container {
 
    /**
     * emission light

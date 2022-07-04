@@ -20,7 +20,10 @@ public class FinalProjectTest {
 
    public List<LightSource> LightSourceInit = new LinkedList<LightSource>();
     public Scene scene1 = new Scene.SceneBuilder("Test scene").setLights(LightSourceInit).build();
-
+//todo 1 last improvement
+    //todo 2 documentation
+    // todo 3 make report
+    // todo 4 make classes
 
 
     /**
@@ -658,10 +661,6 @@ public class FinalProjectTest {
 
 
 
-
-
-
-
                 triangle5,triangle6,triangle7,triangle8,Moon);
 
 
@@ -670,49 +669,34 @@ public class FinalProjectTest {
         scene1.lights.add(new SpotLight(new Color(java.awt.Color.orange), new Point(-56, 50, 71),new Vector(0,-1,0)));
         scene1.lights.add(new PointLight(
                 (new Color(java.awt.Color.YELLOW)).scale(0.2), new Point(0, 65, 35)));
-       // scene1.lights.add(new SpotLight(new Color(java.awt.Color.CYAN).scale(0.8), new Point(10, 55, 75),new Vector(1.5,-1,0)));
-
-        //scene1.lights.add(new PointLight(new Color(java.awt.Color.orange),new Point(110, 135, -20)));
-        //scene1.lights.add(new SpotLight(new Color(java.awt.Color.orange), new Point(110, 135, -20),new Vector(0,-1,0)));
 
 
-
+              scene1.geometries.BuildTree();
 
         Camera camera3 = new Camera.CameraBuilder(new Point(0, 50, 160),
                 new Vector(0, 0, -1), new Vector(0, 1, 0)) //
                 .setVPSize(200, 200) //
                 .setVPDistance(110)
                 .setImageWriter( new ImageWriter("test1004", 1000, 1000))
-                .setRayTracer(new RayTracerBasic(scene1))
+                .setRayTracer(new RayTracerBasic(scene1).set_bb(true))
                 .build();
 
-        camera3.setDepthOfField(false)
+       camera3.setDepthOfField(false)
                 .setAntiAliasing(true)
                 .setFocalDistance(120)
-                .setApertureSize(150)
+               .setApertureSize(150)
                 .setNumOfRaysInAperture(7)
-                .setNumOfRaysInPixel(7);
+               .setNumOfRaysInPixel(7);
 
         camera3.setMultithreading(4).setDebugPrint(1);
-
-
 
         camera3.renderImage();
         camera3.writeToImage();
 
 
-//        scene1.lights.add( //
-//                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
-//                        .set_kL(4E-4).set_kQ(2E-5));
 
-//        .setCamera(camera3.setMin_MULTI_SAMPLING_SAMPLES(4)) //
-
-//                        .setMIN_SHADOW_SAMPLES(100)
-//                        .setMULTISAMPLING())
-//                .setMultithreading(3).setDebugPrint();
 
     }
-
 
 
 }

@@ -14,11 +14,6 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 
-
-
-
-
-
 public class Camera {
 
     private static final String RESOURCE_ERROR = "Renderer resource not set";
@@ -160,7 +155,7 @@ public class Camera {
 
     }
     /**
-     * this function gets the view plane size and a selected pixel,
+     * this method gets the view plane size and a selected pixel,
      * and return the rays from the view plane which intersects the focal plane
      *
      * @param nX - amount of columns in view plane (number of pixels)
@@ -228,7 +223,7 @@ public class Camera {
 
     }
 
-    //todo implement anti-aliasing
+
     /**
      * Cast beam of rays from the pixel in the view plane to the focal point in the focal plane
      *

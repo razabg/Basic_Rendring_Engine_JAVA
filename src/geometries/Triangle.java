@@ -17,6 +17,8 @@ public class Triangle extends Polygon{
 
     public Triangle(Point... vertices) {
         super(vertices);
+        super.setBoundingBox();
+
     }
 
 
@@ -35,7 +37,7 @@ public class Triangle extends Polygon{
      */
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance ,boolean bb) {
 
 
         List<GeoPoint> result = _plane.findGeoIntersections(ray);

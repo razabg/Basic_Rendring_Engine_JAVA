@@ -66,11 +66,11 @@ public abstract class Intersectable {
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance ,boolean bb);
 
 
     public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
-        return findGeoIntersectionsHelper(ray, maxDistance);
+        return findGeoIntersectionsHelper(ray, maxDistance,false);
     }
 
 
