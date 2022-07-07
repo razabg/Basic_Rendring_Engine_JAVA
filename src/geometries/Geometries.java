@@ -185,7 +185,7 @@ public class Geometries extends Container {
             _containers.remove(bestGeometry2);
         }
 
-        int a  = 8;
+
     }
 
     /**

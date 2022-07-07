@@ -1576,8 +1576,15 @@ public class TeaPotTest {
                  .setVPDistance(1000).setVPSize(200, 200) //
                  .setImageWriter(imageWriter)
                  .build();
-
-          camera.setMultithreading(4).setDebugPrint(1);
+//
+//        camera.setDepthOfField(true)
+//                .setAntiAliasing(true)
+//                .setFocalDistance(120) // depth
+//                .setApertureSize(150) // depth
+//                .setNumOfRaysInAperture(60) // depth
+//                .setNumOfRaysInPixel(20); //aa
+//
+        camera.setMultithreading(30).setDebugPrint(1);
 
 
 
