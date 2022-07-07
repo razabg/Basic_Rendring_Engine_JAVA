@@ -54,13 +54,12 @@ public class Tube extends Geometry {
 
 
     /**
-     * the method finds the intersection points of a given ray with the tube
-     * {@see <a href = "https://mrl.cs.nyu.edu/~dzorin/ug-graphics/lectures/lecture20/lecture20.pdf"></a>}
+     * @param ray         - ray that cross the geometry
      * @param maxDistance - the upper bound of distance, any point which
      *                    its distance is greater than this bound will not be returned
-     * @return list of intersection points that were found
+     * @param bb boolean for bounding box
+     * @return list of intersection points that were found and has valid distance value
      */
-    @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance, boolean bb) {
 
 

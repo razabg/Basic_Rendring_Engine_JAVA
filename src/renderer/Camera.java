@@ -47,7 +47,6 @@ public class Camera {
     private boolean AntiAliasing;
 
 
-    //todo understand and docu....
 
     // ***** params for Depth of field effect ****
     /**
@@ -436,13 +435,7 @@ public class Camera {
             }
 
         }
-    public Point get_p0() {
-        return _p0;
-    }
 
-    public Vector get_vTo() {
-        return _vTo;
-    }
 
     public Vector get_vUp() {
         return _vUp;
@@ -452,24 +445,9 @@ public class Camera {
         return _vRight;
     }
 
-    public double get_distance() {
-        return _distance;
-    }
-
-    public double get_width() {
-        return _width;
-    }
-
-    public double get_height() {
-        return _height;
-    }
 
     public ImageWriter getImageWriter() {
         return imageWriter;
-    }
-
-    public RayTracerBase getRayTracer() {
-        return rayTracerBase;
     }
 
 
@@ -509,10 +487,6 @@ public class Camera {
         return this;
     }
 
-    public Camera setRayTracerBase(RayTracerBase rayTracerBase) {
-        this.rayTracerBase = rayTracerBase;
-        return this;
-    }
 
     public Camera setNumOfRaysInPixel(int numOfRaysInPixel) {
         this.numOfRaysInPixel = numOfRaysInPixel;

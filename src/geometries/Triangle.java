@@ -22,14 +22,6 @@ public class Triangle extends Polygon{
     }
 
 
-  /** @Override
-    public Vector getNormal(Point point) {
-        return null;
-    }
-    **/
-
-
-
     /**
      * we've learned the calculations from the introduction lecture (we improved the complexity of polygon intersections calc)
      * @param ray ray toward the object

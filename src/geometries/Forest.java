@@ -28,6 +28,8 @@ public class Forest {
    //  ****************************************************************   //the trees
 
 
+        //first tree
+
         Geometry triangleHeadOfTree1 = new Triangle((new Point(19,50,71)),new Point(25,41,66),
                 new Point(25,41,76))
                 .setEmission(naturalGreen)
@@ -154,7 +156,7 @@ public class Forest {
 
         //********************//
 
-        //tree 2
+        //second tree
 
         Geometry triangleHeadOfSecondTree1 = new Triangle((new Point(90,69,20)),new Point(96,60,15),
                 new Point(96,60,25))
@@ -281,7 +283,7 @@ public class Forest {
         //*********************************//
 
 
-        //tree three
+        //third tree
         Geometry triangleHeadOfThirdTree1 = new Triangle((new Point(-10,54,30)),new Point(-4,45,25),
                 new Point(-4,45,35))
                 .setEmission(naturalGreen)
@@ -477,9 +479,6 @@ public class Forest {
                 new Point(-42,20,80),new Point(-40,20,80))
                 .setEmission(new Color(java.awt.Color.RED).scale(0.1))
                 .setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
-
-
-
 
 
 

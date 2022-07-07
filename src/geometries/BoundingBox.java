@@ -8,7 +8,7 @@ import primitives.Util;
 /**
  * class represents axis-aligned bounding box, it is used to check if ray is in the area of a geometry
  * by checking if the ray direction come with intersection in the bounding box of the geometry.
- * It means for us that the calculation of all the intersections of the same ray should be taken into account
+ * It means for us that the calculation of all the intersections of the same ray should be considered
  */
 public class BoundingBox {
 

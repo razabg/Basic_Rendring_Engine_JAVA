@@ -66,12 +66,22 @@ public abstract class Intersectable {
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance ,boolean bb);
-
 
     public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         return findGeoIntersectionsHelper(ray, maxDistance,false);
     }
+
+
+    /**
+     * @param ray  - ray that cross the geometry
+     * @param maxDistance - the upper bound of distance, any point which
+     *                    its distance is greater than this bound will not be returned
+     *
+     * @param bb boolean for bounding box
+     * @return list of intersection points that were found and has valid distance value
+     */
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance ,boolean bb);
+
 
 
     /**
