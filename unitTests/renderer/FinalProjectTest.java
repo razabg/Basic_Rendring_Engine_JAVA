@@ -10,7 +10,9 @@ import scene.Scene;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * Our final image. We created a nocturnal scene of a forest with a moon and stars
+ */
 public class FinalProjectTest {
 
    public List<LightSource> LightSourceInit = new LinkedList<LightSource>();

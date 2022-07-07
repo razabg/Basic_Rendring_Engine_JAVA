@@ -30,7 +30,7 @@ public class ReflectionRefractionTests {
 	private Scene scene = new Scene.SceneBuilder("Test scene").setLights(LightSourceInit).build();
 
 	/**
-	 * Produce a picture of a sphere lighted by a spot light
+	 * Produce a picture of a sphere lighted by a spotlight
 	 */
 	@Test
 	public void twoSpheres() {
@@ -45,7 +45,7 @@ public class ReflectionRefractionTests {
 //		scene.lights.add( //
 //				new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
 //						.set_kL(0.0004).set_kQ(0.0000006));
-		scene.lights.add( //
+		scene.lights.add(
 				new SpotLight(new Color(1000, 600, 0), new Point(-120, -110, 500), new Vector(-1, -1, -2)) //
 						.set_kL(0.0004).set_kQ(0.0000006));
 		camera.setImageWriter(new ImageWriter("refractionTwoSpheres", 500, 500)) //
@@ -56,7 +56,7 @@ public class ReflectionRefractionTests {
 	}
 
 	/**
-	 * Produce a picture of a sphere lighted by a spot light
+	 * Produce a picture of a sphere lighted by a spotlight
 	 */
 	@Test
 	public void twoSpheresOnMirrors() {
@@ -89,7 +89,7 @@ public class ReflectionRefractionTests {
 	}
 
 	/**
-	 * Produce a picture of a two triangles lighted by a spot light with a partially
+	 * Produce a picture of two triangles lighted by a spotlight with a partially
 	 * transparent Sphere producing partial shadow
 	 */
 	@Test
@@ -119,7 +119,7 @@ public class ReflectionRefractionTests {
 
 
 	/**
-	 * Produce a picture of a sphere lighted by a spot light
+	 * Produce a picture of a sphere lighted by a spotlight
 	 */
 	@Test
 	public void MyTest() {

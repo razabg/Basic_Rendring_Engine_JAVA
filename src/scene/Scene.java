@@ -40,7 +40,7 @@ public class Scene {
 
 
     /**
-     * bulider pattern 
+     * builder pattern
      */
     public static class SceneBuilder {
 

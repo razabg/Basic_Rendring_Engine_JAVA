@@ -83,7 +83,7 @@ public class LightsTests {
 	}
 
 
-/**
+	/**
 	 * Produce a picture of a sphere lighted by a point light
 	 */
 
@@ -164,7 +164,7 @@ public class LightsTests {
 
 
 	/**
-	 * Produce a picture of a two triangles lighted by a point light
+	 * Produce a picture of two triangles lighted by a point light
 	 */
 
 	@Test
@@ -189,7 +189,7 @@ public class LightsTests {
 
 
 	/**
-	 * Produce a picture of a two triangles lighted by a spot light
+	 * Produce a picture of two triangles lighted by a spotlight
 	 */
 
 	@Test
