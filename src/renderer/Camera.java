@@ -311,7 +311,7 @@ public class Camera {
                             castBeam(nX, nY, pixel.row,pixel.col);
                         }
 
-                }).start();
+                }).start();//
             }
             Pixel.waitToFinish();
         }
