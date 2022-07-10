@@ -165,7 +165,7 @@ public class Camera {
      */
     public List<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i) {
 
-        // the returned list of rays
+        // the returned list of raysS
         List<Ray> rays = new ArrayList<>();
 
         // add the center ray to the list
@@ -177,7 +177,7 @@ public class Camera {
         double pixelHeight = alignZero(_height / nY);   //  Ry = h/Ny
         // pixel width is the division of the view plane width in the number of columns of pixels
         double pixelWidth = alignZero(_width / nX);   //  Rx = w/Nx
-
+        //anti-aliasing
         if (numOfRaysInPixel != 1) {
             rays.addAll(centerRay.randomRaysInGrid(
                     get_vUp(),
@@ -189,7 +189,7 @@ public class Camera {
             );
         }
 
-        // if more then one ray is emitted (DOF effect)
+        // if more than one ray is emitted (DOF effect)
         if (numOfRaysInAperture != 1) {
             List<Ray> temp_rays = new LinkedList<>();
             // apertureSize is the value of how many pixels it spreads on

@@ -17,10 +17,9 @@ public class FinalProjectTest {
 
    public List<LightSource> LightSourceInit = new LinkedList<LightSource>();
     public Scene scene1 = new Scene.SceneBuilder("Test scene").setLights(LightSourceInit).build();
-//todo 1 last improvement
-    //todo 2 documentation
+
     // todo 3 make report
-    // todo 4 make classes
+
 
     /**
      * y = positive up,negative down
@@ -58,7 +57,7 @@ public class FinalProjectTest {
 
 
 
-       Forest myForest = new Forest(); //class that make the forest
+       Forest myForest = new Forest(); //class that create the forest
 
 
         scene1 = myForest.sceneOfForest; //copy the forest
@@ -71,24 +70,24 @@ public class FinalProjectTest {
                 (new Color(java.awt.Color.YELLOW)).scale(0.2), new Point(0, 65, 35)));
 
 
-        //   scene1.geometries.BuildTree();
+           scene1.geometries.BuildTree();
 
         Camera camera3 = new Camera.CameraBuilder(new Point(0, 50, 160),
                 new Vector(0, 0, -1), new Vector(0, 1, 0)) //
                 .setVPSize(200, 200) //
                 .setVPDistance(110)
-                .setImageWriter( new ImageWriter("test1004", 1000, 1000))
-                .setRayTracer(new RayTracerBasic(scene1))
+                .setImageWriter( new ImageWriter("test1006", 1000, 1000))
+                .setRayTracer(new RayTracerBasic(scene1).set_bb(true))
                 .build();
 
-//       camera3.setDepthOfField(true)
-//                .setAntiAliasing(true)
-//                .setFocalDistance(120) // depth
-//                .setApertureSize(150) // depth
-//                .setNumOfRaysInAperture(60) // depth
-//                .setNumOfRaysInPixel(20); //aa
+       camera3.setDepthOfField(true)
+                .setAntiAliasing(true)
+                .setFocalDistance(120) // depth
+                .setApertureSize(160) // depth
+                .setNumOfRaysInAperture(60) // depth
+                .setNumOfRaysInPixel(20); //aa
 
-        camera3.setMultithreading(5).setDebugPrint(1);
+         camera3.setMultithreading(6).setDebugPrint(1);
 
         camera3.renderImage();
         camera3.writeToImage();

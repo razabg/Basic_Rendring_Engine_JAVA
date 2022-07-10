@@ -102,7 +102,7 @@ public class BoundingBox {
     }
 
     /**
-     * Function which checks if a ray intersects the bounding region
+     * method that check a ray intersects the bounding region
      *
      * @param ray the ray to check for intersection
      * @return boolean result, true if intersects, false otherwise

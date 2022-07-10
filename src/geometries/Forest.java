@@ -11,7 +11,7 @@ import java.util.List;
 
 
 /**
- * the class create the forest with the lovely table
+ * the class create the forest with a lovely table
  */
 public class Forest {
 
