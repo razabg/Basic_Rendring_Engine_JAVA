@@ -8,3 +8,5 @@ A render engine used to create 3-dimensional graphical scene using ray tracing,a
 boundry box volume hierarchy, threadpoll multi-threading.
 based in AGILE development, TDD, RDD and Design Patterns as Compositem Builder and Wrapper pattern.
 
+
+![image](https://user-images.githubusercontent.com/80701759/178141870-079d4e27-d6d9-416e-9771-6edcd87e76bd.png)
